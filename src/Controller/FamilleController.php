@@ -24,6 +24,8 @@ class FamilleController extends AbstractController
     #[Route('/new', name: 'famille_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $famille = new Famille();
         $form = $this->createForm(FamilleType::class, $famille);
         $form->handleRequest($request);
@@ -53,6 +55,8 @@ class FamilleController extends AbstractController
     #[Route('/{id}/edit', name: 'famille_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Famille $famille): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this->createForm(FamilleType::class, $famille);
         $form->handleRequest($request);
 
@@ -71,6 +75,8 @@ class FamilleController extends AbstractController
     #[Route('/{id}', name: 'famille_delete', methods: ['POST'])]
     public function delete(Request $request, Famille $famille): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if ($this->isCsrfTokenValid('delete'.$famille->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($famille);
