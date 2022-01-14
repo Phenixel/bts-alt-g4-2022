@@ -27,3 +27,9 @@
     color: black;
     width: 30px;
 }
+.icon_index:hover{
+    color: darkgreen;
+}
+#tr:hover{
+    background-color: #B7DBB0;
+}
