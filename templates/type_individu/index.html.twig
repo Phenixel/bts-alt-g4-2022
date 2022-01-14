@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeIndividu index{% endblock %}
+
+{% block body %}
+    <h1>Type Individu <a href="{{ path('type_individu_new') }}" class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tin_code</th>
+                <th>Tin_libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_individu in type_individus %}
+            <tr>
+                <td>{{ type_individu.id }}</td>
+                <td>{{ type_individu.tinCode }}</td>
+                <td>{{ type_individu.tinLibelle }}</td>
+                <td>
+                    <a href="{{ path('type_individu_show', {'id': type_individu.id}) }}"><i class="icon_index fas fa-eye"></i></a>
+                    <a href="{{ path('type_individu_edit', {'id': type_individu.id}) }}"><i class="icon_index fas fa-pen"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

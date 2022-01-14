@@ -14,10 +14,8 @@
         {% endblock %}
 
     </head>
-    <body>
+    <body id="body">
         <div class="header">
-            <div class="user_profil"></div>
-
             <nav id="navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #A8F970;">
                 <div class="container-fluid">
                     <i id="imgMed" class="fas fa-user-md"></i>
@@ -28,22 +26,24 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Médicament</a>
+                                <a class="nav-link" href="/medicament">Médicament</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Type individu</a>
+                                <a class="nav-link" href="/type/individu/">Type individu</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <a href="#"><i id="logout" class="fas fa-sign-out-alt"></i></a>
+                <a href="/logout"><i id="logout" class="fas fa-sign-out-alt"></i></a>
             </nav>
         </div>
 
-        {% block body %}{% endblock %}
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
 
         {% block javascripts %}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

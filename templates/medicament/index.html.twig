@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medicament index{% endblock %}
+
+{% block body %}
+    <h1>Medicament <a href="{{ path('medicament_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>MED_NOMCOMMERCIAL</th>
+                <th>FAM_CODE</th>
+                <th>MED_COMPOSITION</th>
+                <th>MED_EFFETS</th>
+                <th>MED_CONTREINDIC</th>
+                <th>MED_PRIXECHANTILLON</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medicament in medicaments %}
+            <tr>
+                <td>{{ medicament.id }}</td>
+                <td>{{ medicament.MEDNOMCOMMERCIAL }}</td>
+                <td>{{ medicament.FAMCODE }}</td>
+                <td>{{ medicament.MEDCOMPOSITION }}</td>
+                <td>{{ medicament.MEDEFFETS }}</td>
+                <td>{{ medicament.MEDCONTREINDIC }}</td>
+                <td>{{ medicament.MEDPRIXECHANTILLON }}</td>
+                <td>
+                    <a href="{{ path('medicament_show', {'id': medicament.id}) }}">show</a>
+                    <a href="{{ path('medicament_edit', {'id': medicament.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

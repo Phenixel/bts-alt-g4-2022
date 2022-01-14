@@ -1,3 +1,6 @@
+#body{
+    background-color: #dbffd4;
+}
 #navbar{
     padding: 250px;
     padding-top: 20px;
@@ -16,4 +19,11 @@
 }
 .nav-link{
     font-family: "Arial Black";
+}
+.content{
+    margin: 50px;
+}
+.icon_index{
+    color: black;
+    width: 30px;
 }
