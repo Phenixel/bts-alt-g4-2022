@@ -18,12 +18,7 @@ class Medicament
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $MED_DEPOTLEGAL;
-
-    /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $MED_NOMCOMMERCIAL;
 
@@ -33,22 +28,22 @@ class Medicament
     private $FAM_CODE;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $MED_COMPOSITION;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $MED_EFFETS;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $MED_CONTREINDIC;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      */
     private $MED_PRIXECHANTILLON;
 
@@ -57,24 +52,12 @@ class Medicament
         return $this->id;
     }
 
-    public function getMEDDEPOTLEGAL(): ?int
-    {
-        return $this->MED_DEPOTLEGAL;
-    }
-
-    public function setMEDDEPOTLEGAL(int $MED_DEPOTLEGAL): self
-    {
-        $this->MED_DEPOTLEGAL = $MED_DEPOTLEGAL;
-
-        return $this;
-    }
-
     public function getMEDNOMCOMMERCIAL(): ?string
     {
         return $this->MED_NOMCOMMERCIAL;
     }
 
-    public function setMEDNOMCOMMERCIAL(?string $MED_NOMCOMMERCIAL): self
+    public function setMEDNOMCOMMERCIAL(string $MED_NOMCOMMERCIAL): self
     {
         $this->MED_NOMCOMMERCIAL = $MED_NOMCOMMERCIAL;
 
@@ -98,7 +81,7 @@ class Medicament
         return $this->MED_COMPOSITION;
     }
 
-    public function setMEDCOMPOSITION(?string $MED_COMPOSITION): self
+    public function setMEDCOMPOSITION(string $MED_COMPOSITION): self
     {
         $this->MED_COMPOSITION = $MED_COMPOSITION;
 
@@ -110,7 +93,7 @@ class Medicament
         return $this->MED_EFFETS;
     }
 
-    public function setMEDEFFETS(?string $MED_EFFETS): self
+    public function setMEDEFFETS(string $MED_EFFETS): self
     {
         $this->MED_EFFETS = $MED_EFFETS;
 
@@ -122,7 +105,7 @@ class Medicament
         return $this->MED_CONTREINDIC;
     }
 
-    public function setMEDCONTREINDIC(?string $MED_CONTREINDIC): self
+    public function setMEDCONTREINDIC(string $MED_CONTREINDIC): self
     {
         $this->MED_CONTREINDIC = $MED_CONTREINDIC;
 
@@ -134,7 +117,7 @@ class Medicament
         return $this->MED_PRIXECHANTILLON;
     }
 
-    public function setMEDPRIXECHANTILLON(?float $MED_PRIXECHANTILLON): self
+    public function setMEDPRIXECHANTILLON(float $MED_PRIXECHANTILLON): self
     {
         $this->MED_PRIXECHANTILLON = $MED_PRIXECHANTILLON;
 

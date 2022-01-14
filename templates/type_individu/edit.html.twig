@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeIndividu{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeIndividu</h1>
+
+    {{ include('type_individu/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('type_individu_index') }}">back to list</a>
+
+    {{ include('type_individu/_delete_form.html.twig') }}
+{% endblock %}

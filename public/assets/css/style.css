@@ -1,0 +1,29 @@
+#body{
+    background-color: #dbffd4;
+}
+#navbar{
+    padding: 250px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 5px 20px 0px;
+}
+#navbarNav{
+    justify-content: center;
+}
+#imgMed, #logout{
+    font-size: 30px;
+    width: 50px;
+}
+.navbar-brand{
+    font-family: "Arial Black";
+}
+.nav-link{
+    font-family: "Arial Black";
+}
+.content{
+    margin: 50px;
+}
+.icon_index{
+    color: black;
+    width: 30px;
+}
