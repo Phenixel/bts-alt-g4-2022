@@ -24,3 +24,8 @@ document.getElementById("eye").addEventListener("click", function () {
     }
 }, false);
 
+
+document.getElementById("register").addEventListener("click", function () {
+    document.location.href="/register";
+}, false);
+

@@ -3,11 +3,13 @@
 {% block title %}Edit Medicament{% endblock %}
 
 {% block body %}
+    <a class="btn btn-primary" href="{{ path('medicament_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+
+    <br><br>
+
     <h1>Edit Medicament</h1>
 
     {{ include('medicament/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('medicament_index') }}">back to list</a>
-
-    {{ include('medicament/_delete_form.html.twig') }}
+        {{ include('medicament/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
