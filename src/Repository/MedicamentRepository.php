@@ -19,6 +19,16 @@ class MedicamentRepository extends ServiceEntityRepository
         parent::__construct($registry, Medicament::class);
     }
 
+    public function findFamille(){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            ''
+        );
+
+        $query -> getResult();
+    }
+
     // /**
     //  * @return Medicament[] Returns an array of Medicament objects
     //  */
