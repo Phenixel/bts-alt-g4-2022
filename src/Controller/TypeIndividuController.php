@@ -24,8 +24,8 @@ class TypeIndividuController extends AbstractController
     #[Route('/new', name: 'type_individu_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-//        $hasAccess = $this->isGranted('ROLE_ADMIN');
-//        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $typeIndividu = new TypeIndividu();
         $form = $this->createForm(TypeIndividuType::class, $typeIndividu);

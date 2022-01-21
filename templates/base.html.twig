@@ -8,15 +8,15 @@
 
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+        <link href="/assets/css/style.css" rel="stylesheet">
         {% block stylesheets %}
-            <link href="/assets/css/style.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         {% endblock %}
 
     </head>
     <body id="body">
         <div class="header">
-            <nav id="navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #A8F970;">
+            <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <i id="imgMed" class="fas fa-user-md"></i>
                     <a class="navbar-brand" href="#">Utilisateur</a>
@@ -37,7 +37,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="/logout"><i id="logout" class="fas fa-sign-out-alt"></i></a>
+                <a href="/logout"><i id="logout" class="icon_index fas fa-sign-out-alt"></i></a>
             </nav>
         </div>
 
@@ -45,8 +45,20 @@
             {% block body %}{% endblock %}
         </div>
 
-        {% block javascripts %}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        {% endblock %}
+        <div id="versions">Version Beta 0.1.0</div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/assets/js/annimation.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        {% block javascripts %}{% endblock %}
+
+    <script>
+        $(
+            function (){
+                annimBack();
+            }
+        )
+    </script>
+
     </body>
 </html>

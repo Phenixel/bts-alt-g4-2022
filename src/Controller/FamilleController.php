@@ -16,6 +16,8 @@ class FamilleController extends AbstractController
     #[Route('/', name: 'famille_index', methods: ['GET'])]
     public function index(FamilleRepository $familleRepository): Response
     {
+        $familleAll = $familleRepository->findAll();
+
         return $this->render('famille/index.html.twig', [
             'familles' => $familleRepository->findAll(),
         ]);

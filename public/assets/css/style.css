@@ -1,11 +1,17 @@
+*{
+    font-family: Arial, serif;
+}
 #body{
-    background-color: #dbffd4;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /*background-color: #e3fbf4;*/
 }
 #navbar{
     padding: 250px;
     padding-top: 20px;
     padding-bottom: 20px;
-    box-shadow: 0px 5px 20px 0px;
+    box-shadow: 0 5px 20px 0;
+    background-color: #9bffeb;
 }
 #navbarNav{
     justify-content: center;
@@ -15,10 +21,10 @@
     width: 50px;
 }
 .navbar-brand{
-    font-family: "Arial Black";
+    font-family: "Arial Black", serif;
 }
 .nav-link{
-    font-family: "Arial Black";
+    font-family: "Arial Black", serif;
 }
 .content{
     margin: 50px;
@@ -32,4 +38,20 @@
 }
 #tr:hover{
     background-color: #B7DBB0;
+}
+
+#versions{
+    z-index: 50;
+    bottom: 0;
+    position: fixed;
+    color: #0000009e;
+    font-family: "Arial Black", serif;
+}
+
+.list-btn{
+    margin-top: 30px;
+    display: flex;
+}
+.btn-need-marge{
+    margin-left: 50px;
 }
