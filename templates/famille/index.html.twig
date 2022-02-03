@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Fam_code</th>
                 <th>Fam_libelle</th>
                 <th>actions</th>
             </tr>
@@ -18,7 +17,6 @@
         {% for famille in familles %}
             <tr>
                 <td>{{ famille.id }}</td>
-                <td>{{ famille.famCode }}</td>
                 <td>{{ famille.famLibelle }}</td>
                 <td>
                     <a href="{{ path('famille_show', {'id': famille.id}) }}">show</a>

@@ -16,6 +16,8 @@ class MedicamentController extends AbstractController
     #[Route('/', name: 'medicament_index', methods: ['GET'])]
     public function index(MedicamentRepository $medicamentRepository): Response
     {
+
+
         return $this->render('medicament/index.html.twig', [
             'medicaments' => $medicamentRepository->findAll(),
         ]);

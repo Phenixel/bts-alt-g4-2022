@@ -17,10 +17,6 @@ class Famille
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $fam_code;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,18 +26,6 @@ class Famille
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFamCode(): ?int
-    {
-        return $this->fam_code;
-    }
-
-    public function setFamCode(int $fam_code): self
-    {
-        $this->fam_code = $fam_code;
-
-        return $this;
     }
 
     public function getFamLibelle(): ?string

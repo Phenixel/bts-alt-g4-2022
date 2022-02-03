@@ -16,8 +16,6 @@ class FamilleController extends AbstractController
     #[Route('/', name: 'famille_index', methods: ['GET'])]
     public function index(FamilleRepository $familleRepository): Response
     {
-        $familleAll = $familleRepository->findAll();
-
         return $this->render('famille/index.html.twig', [
             'familles' => $familleRepository->findAll(),
         ]);
@@ -26,7 +24,7 @@ class FamilleController extends AbstractController
     #[Route('/new', name: 'famille_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $famille = new Famille();
         $form = $this->createForm(FamilleType::class, $famille);
