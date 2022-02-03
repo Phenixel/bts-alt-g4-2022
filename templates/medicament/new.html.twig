@@ -3,9 +3,10 @@
 {% block title %}New Medicament{% endblock %}
 
 {% block body %}
-    <h1>Create new Medicament</h1>
+    <a class="btn btn-primary" href="{{ path('medicament_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+    <br><br>
+
+    <h1>Créer un nouveau Medicament</h1>
 
     {{ include('medicament/_form.html.twig') }}
-
-    <a href="{{ path('medicament_index') }}">back to list</a>
 {% endblock %}
