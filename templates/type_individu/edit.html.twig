@@ -3,11 +3,11 @@
 {% block title %}Edit TypeIndividu{% endblock %}
 
 {% block body %}
-    <h1>Edit TypeIndividu</h1>
+    <a class="btn btn-primary" href="{{ path('type_individu_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+    <br><br>
+    <h1>Modifier le Type Individu</h1>
 
-    {{ include('type_individu/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('type_individu_index') }}">back to list</a>
-
-    {{ include('type_individu/_delete_form.html.twig') }}
+    {{ include('type_individu/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+{#        {{ include('type_individu/_delete_form.html.twig') }}#}
+    </div>
 {% endblock %}

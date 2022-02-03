@@ -18,11 +18,6 @@ class TypeIndividu
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $tin_code;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $tin_libelle;
@@ -30,18 +25,6 @@ class TypeIndividu
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTinCode(): ?int
-    {
-        return $this->tin_code;
-    }
-
-    public function setTinCode(int $tin_code): self
-    {
-        $this->tin_code = $tin_code;
-
-        return $this;
     }
 
     public function getTinLibelle(): ?string

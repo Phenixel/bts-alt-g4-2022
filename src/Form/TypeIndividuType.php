@@ -12,7 +12,6 @@ class TypeIndividuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tin_code')
             ->add('tin_libelle')
         ;
     }

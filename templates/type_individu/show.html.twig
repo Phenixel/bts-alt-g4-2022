@@ -3,7 +3,9 @@
 {% block title %}TypeIndividu{% endblock %}
 
 {% block body %}
-    <h1>TypeIndividu</h1>
+    <a class="btn btn-primary" href="{{ path('type_individu_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+    <br><br>
+    <h1>Type Individu</h1>
 
     <table class="table">
         <tbody>
@@ -12,19 +14,14 @@
                 <td>{{ type_individu.id }}</td>
             </tr>
             <tr>
-                <th>Tin_code</th>
-                <td>{{ type_individu.tinCode }}</td>
-            </tr>
-            <tr>
-                <th>Tin_libelle</th>
+                <th>Libelle</th>
                 <td>{{ type_individu.tinLibelle }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('type_individu_index') }}">back to list</a>
-
-    <a href="{{ path('type_individu_edit', {'id': type_individu.id}) }}">edit</a>
-
-    {{ include('type_individu/_delete_form.html.twig') }}
+    <div class="list-btn">
+        <a class="btn btn-secondary" href="{{ path('type_individu_edit', {'id': type_individu.id}) }}">Modifier</a>
+{#            {{ include('type_individu/_delete_form.html.twig') }}#}
+    </div>
 {% endblock %}
