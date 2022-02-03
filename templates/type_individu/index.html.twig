@@ -8,7 +8,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Tin_code</th>
                 <th>Tin_libelle</th>
                 <th>actions</th>
             </tr>
@@ -17,7 +16,6 @@
         {% for type_individu in type_individus %}
             <tr id="tr">
                 <td>{{ type_individu.id }}</td>
-                <td>{{ type_individu.tinCode }}</td>
                 <td>{{ type_individu.tinLibelle }}</td>
                 <td>
                     <a href="{{ path('type_individu_show', {'id': type_individu.id}) }}"><i class="icon_index fas fa-eye"></i></a>
