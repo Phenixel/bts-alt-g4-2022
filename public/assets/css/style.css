@@ -1,10 +1,9 @@
 *{
-    font-family: Arial, serif;
+    font-family: "Arial", serif;
 }
 #body{
     background-attachment: fixed;
     background-repeat: no-repeat;
-    /*background-color: #e3fbf4;*/
 }
 #navbar{
     padding: 250px;

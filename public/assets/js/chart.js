@@ -2,7 +2,7 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Adulte', 'Enfants', 'Adolecents', 'Femme enceinte'],
+        labels: ['Antalgique', 'Antidépresseur', 'Antiinflamatoire', 'anxiolitique'],
         datasets: [{
             label: 'Nombre de médicament',
             data: [12, 19, 3, 5],
