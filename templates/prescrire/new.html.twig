@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Prescrire{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path('prescrire_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+    <br><br>
+
+    <h1>Créer une nouvelle prescription</h1>
+
+    {{ include('prescrire/_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Prescrire{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path('prescrire_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+
+    <br><br>
+
+    <h1>Editer prescription</h1>
+
+    {{ include('prescrire/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+        {{ include('prescrire/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

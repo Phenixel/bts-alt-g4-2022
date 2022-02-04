@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prescrire{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path('prescrire_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+
+    <br><br>
+
+    <h1>Prescription</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prescrire.id }}</td>
+            </tr>
+            <tr>
+                <th>Médicament</th>
+                <td>{{ prescrire.MedDepotlegal }}</td>
+            </tr>
+            <tr>
+                <th>Type individu</th>
+                <td>{{ prescrire.tinCode }}</td>
+            </tr>
+            <tr>
+                <th>Dosage</th>
+                <td>{{ prescrire.dosCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="list-btn">
+        <a class="btn btn-secondary" href="{{ path('prescrire_edit', {'id': prescrire.id}) }}">Modifier</a>
+        {{ include('prescrire/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

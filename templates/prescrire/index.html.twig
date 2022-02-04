@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prescrire index{% endblock %}
+
+{% block body %}
+    <h1>Prescriptions <a href="{{ path('prescrire_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Médicament</th>
+                <th>Type individu</th>
+                <th>Dosage</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prescrire in prescrires %}
+            <tr>
+                <td>{{ prescrire.id }}</td>
+                <td>{{ prescrire.MedDepotlegal }}</td>
+                <td>{{ prescrire.tinCode }}</td>
+                <td>{{ prescrire.dosCode }}</td>
+                <td>
+                    <a href="{{ path('prescrire_show', {'id': prescrire.id}) }}"><i class="icon_index fas fa-eye"></i></a>
+                    <a href="{{ path('prescrire_edit', {'id': prescrire.id}) }}"><i class="icon_index fas fa-pen"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
