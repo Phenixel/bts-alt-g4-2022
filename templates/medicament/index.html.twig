@@ -21,13 +21,13 @@
         <tbody>
         {% for medicament in medicaments %}
             <tr id="tr">
-                <td>{{ medicament.id }}</td>
-                <td>{{ medicament.MEDNOMCOMMERCIAL }}</td>
-                <td>{{ medicament.FAMCODE }}</td>
-                <td>{{ medicament.MEDCOMPOSITION }}</td>
-                <td>{{ medicament.MEDEFFETS }}</td>
-                <td>{{ medicament.MEDCONTREINDIC }}</td>
-                <td>{{ medicament.MEDPRIXECHANTILLON }} €</td>
+                <td>{{ medicament[0].id }}</td>
+                <td>{{ medicament[0].MEDNOMCOMMERCIAL }}</td>
+                <td>{{ medicament[0].FAMCODE }}</td>
+                <td>{{ medicament[0].MEDCOMPOSITION }}</td>
+                <td>{{ medicament[0].MEDEFFETS }}</td>
+                <td>{{ medicament[0].MEDCONTREINDIC }}</td>
+                <td>{{ medicament[0].MEDPRIXECHANTILLON }} €</td>
                 <td>
                     <a href="{{ path('medicament_show', {'id': medicament.id}) }}"><i class="icon_index fas fa-eye"></i></a>
                     <a href="{{ path('medicament_edit', {'id': medicament.id}) }}"><i class="icon_index fas fa-pen"></i></a>
