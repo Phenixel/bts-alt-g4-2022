@@ -17,7 +17,7 @@ class MedicamentController extends AbstractController
     public function index(MedicamentRepository $medicamentRepository): Response
     {
         $medicamentAll = $medicamentRepository->findFamille();
-        dd($medicamentAll);
+//        dd($medicamentAll[0]);
 
 
         return $this->render('medicament/index.html.twig', [
