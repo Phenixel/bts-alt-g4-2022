@@ -4,6 +4,7 @@
 #body{
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-color: whitesmoke;
 }
 #navbar{
     padding: 250px;

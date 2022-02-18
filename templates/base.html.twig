@@ -19,8 +19,14 @@
         <div class="header">
             <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
-                    <i id="imgMed" class="fas fa-user-md"></i>
-                    {% if app.user %} <a class="navbar-brand" href="/">{{ app.user.email }} </a> {% else %} <a class="navbar-brand" href="/login">Utilisateur </a> {% endif %}
+                    {% if app.user%}
+                        {% if app.user.roles[0] == "ROLE_ADMIN" %}<i id="imgMed" class="fas fa-user-md"></i>{% else %}<i id="imgMed" class="fas fa-user"></i>{% endif %} <a class="navbar-brand" href="/">{{ app.user.email }} </a>
+                    {% else %} <i id="imgMed" class="fas fa-user-lock"></i> <a class="navbar-brand" href="/login">Se connecter </a> {% endif %}
+
+{#                    {% if app.user %} #}
+{#                        <a class="navbar-brand" href="/">{{ app.user.email }} </a> {% else %} <a class="navbar-brand" href="/login">Se connecter </a> #}
+{#                    {% endif %}#}
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -59,7 +65,7 @@
     <script>
         $(
             function (){
-                annimBack();
+                // annimBack();
             }
         )
     </script>
