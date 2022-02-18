@@ -20,13 +20,36 @@ class AppFixtures extends Fixture
     // ...
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setEmail('phe@phenixel.fr');
+        $tabAdmin = ['phen@gsb.fr','max@gsb.fr'];
 
-        $password = $this->hasher->hashPassword($user, 'azerty');
-        $user->setPassword($password);
+        foreach ($tabAdmin as $mail){
+            $user = new User();
+            $user->setEmail($mail);
 
-        $manager->persist($user);
-        $manager->flush();
+//            Ajout de rôle
+            $user->setRoles(["ROLE_ADMIN"]);
+
+            $password = $this->hasher->hashPassword($user, 'azerty');
+            $user->setPassword($password);
+
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+        $tabuser = ['user@gsb.fr','lambda@gsb.fr'];
+
+        foreach ($tabuser as $mail){
+            $user = new User();
+            $user->setEmail($mail);
+
+//            Ajout de rôle
+            $user->setRoles(["ROLE_USER"]);
+
+            $password = $this->hasher->hashPassword($user, 'azerty');
+            $user->setPassword($password);
+
+            $manager->persist($user);
+            $manager->flush();
+        }
     }
 }
