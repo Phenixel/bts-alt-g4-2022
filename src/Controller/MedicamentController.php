@@ -16,10 +16,12 @@ class MedicamentController extends AbstractController
     #[Route('/', name: 'medicament_index', methods: ['GET'])]
     public function index(MedicamentRepository $medicamentRepository): Response
     {
+        $medicamentAll = $medicamentRepository->findFamille();
+//        dd($medicamentAll[0]);
 
 
         return $this->render('medicament/index.html.twig', [
-            'medicaments' => $medicamentRepository->findAll(),
+            'medicaments' => $medicamentAll,
         ]);
     }
 

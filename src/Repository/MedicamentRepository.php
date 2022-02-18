@@ -23,10 +23,12 @@ class MedicamentRepository extends ServiceEntityRepository
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            ''
+            'SELECT m.id, m.MED_NOMCOMMERCIAL, f.fam_libelle, m.MED_COMPOSITION, m.MED_EFFETS, m.MED_CONTREINDIC, m.MED_PRIXECHANTILLON
+            FROM App\Entity\Medicament as m, App\Entity\Famille as f
+            WHERE f.id = m.FAM_CODE'
         );
 
-        $query -> getResult();
+        return $query->getResult();
     }
 
     // /**
