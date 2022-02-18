@@ -16,8 +16,10 @@ class MedicamentController extends AbstractController
     #[Route('/', name: 'medicament_index', methods: ['GET'])]
     public function index(MedicamentRepository $medicamentRepository): Response
     {
+//        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $medicamentAll = $medicamentRepository->findFamille();
-//        dd($medicamentAll[0]);
+//        dd($medicamentAll);
 
 
         return $this->render('medicament/index.html.twig', [
@@ -28,6 +30,8 @@ class MedicamentController extends AbstractController
     #[Route('/new', name: 'medicament_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $medicament = new Medicament();
         $form = $this->createForm(MedicamentType::class, $medicament);
         $form->handleRequest($request);
@@ -49,6 +53,8 @@ class MedicamentController extends AbstractController
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
     public function show(Medicament $medicament): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('medicament/show.html.twig', [
             'medicament' => $medicament,
         ]);
@@ -57,6 +63,8 @@ class MedicamentController extends AbstractController
     #[Route('/{id}/edit', name: 'medicament_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Medicament $medicament): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(MedicamentType::class, $medicament);
         $form->handleRequest($request);
 
@@ -75,6 +83,8 @@ class MedicamentController extends AbstractController
     #[Route('/{id}', name: 'medicament_delete', methods: ['POST'])]
     public function delete(Request $request, Medicament $medicament): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$medicament->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($medicament);

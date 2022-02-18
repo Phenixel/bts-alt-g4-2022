@@ -16,6 +16,8 @@ class TypeIndividuController extends AbstractController
     #[Route('/', name: 'type_individu_index', methods: ['GET'])]
     public function index(TypeIndividuRepository $typeIndividuRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('type_individu/index.html.twig', [
             'type_individus' => $typeIndividuRepository->findAll(),
         ]);
@@ -24,8 +26,7 @@ class TypeIndividuController extends AbstractController
     #[Route('/new', name: 'type_individu_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-        // $hasAccess = $this->isGranted('ROLE_ADMIN');
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $typeIndividu = new TypeIndividu();
         $form = $this->createForm(TypeIndividuType::class, $typeIndividu);
@@ -48,6 +49,8 @@ class TypeIndividuController extends AbstractController
     #[Route('/{id}', name: 'type_individu_show', methods: ['GET'])]
     public function show(TypeIndividu $typeIndividu): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('type_individu/show.html.twig', [
             'type_individu' => $typeIndividu,
         ]);
@@ -56,6 +59,8 @@ class TypeIndividuController extends AbstractController
     #[Route('/{id}/edit', name: 'type_individu_edit', methods: ['GET','POST'])]
     public function edit(Request $request, TypeIndividu $typeIndividu): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(TypeIndividuType::class, $typeIndividu);
         $form->handleRequest($request);
 
@@ -74,6 +79,8 @@ class TypeIndividuController extends AbstractController
     #[Route('/{id}', name: 'type_individu_delete', methods: ['POST'])]
     public function delete(Request $request, TypeIndividu $typeIndividu): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$typeIndividu->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($typeIndividu);

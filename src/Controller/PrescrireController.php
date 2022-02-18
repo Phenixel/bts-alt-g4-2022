@@ -16,6 +16,8 @@ class PrescrireController extends AbstractController
     #[Route('/', name: 'prescrire_index', methods: ['GET'])]
     public function index(PrescrireRepository $prescrireRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('prescrire/index.html.twig', [
             'prescrires' => $prescrireRepository->findAll(),
         ]);
@@ -24,6 +26,8 @@ class PrescrireController extends AbstractController
     #[Route('/new', name: 'prescrire_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $prescrire = new Prescrire();
         $form = $this->createForm(PrescrireType::class, $prescrire);
         $form->handleRequest($request);
@@ -45,6 +49,8 @@ class PrescrireController extends AbstractController
     #[Route('/{id}', name: 'prescrire_show', methods: ['GET'])]
     public function show(Prescrire $prescrire): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('prescrire/show.html.twig', [
             'prescrire' => $prescrire,
         ]);
@@ -53,6 +59,8 @@ class PrescrireController extends AbstractController
     #[Route('/{id}/edit', name: 'prescrire_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Prescrire $prescrire): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(PrescrireType::class, $prescrire);
         $form->handleRequest($request);
 
@@ -71,6 +79,8 @@ class PrescrireController extends AbstractController
     #[Route('/{id}', name: 'prescrire_delete', methods: ['POST'])]
     public function delete(Request $request, Prescrire $prescrire): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$prescrire->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($prescrire);
