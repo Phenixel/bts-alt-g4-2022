@@ -16,7 +16,7 @@ class MedicamentController extends AbstractController
     #[Route('/', name: 'medicament_index', methods: ['GET'])]
     public function index(MedicamentRepository $medicamentRepository): Response
     {
-//        $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $medicamentAll = $medicamentRepository->findFamille();
 //        dd($medicamentAll);
