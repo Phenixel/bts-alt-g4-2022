@@ -1,6 +1,6 @@
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'polarArea',
     data: {
         labels: ['Antalgique', 'Antidépresseur', 'Antiinflamatoire', 'anxiolitique'],
         datasets: [{
@@ -20,6 +20,14 @@ const myChart = new Chart(ctx, {
             ],
             borderWidth: 1
         }]
+    },
+    title: {
+        display: true,
+        text: 'Nombre de médicament par famille',
+        padding: {
+            top: 10,
+            bottom: 30
+        }
     },
     options: {
         scales: {
