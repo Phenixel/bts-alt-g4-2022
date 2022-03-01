@@ -60,3 +60,12 @@
 .btn-need-marge{
     margin-left: 50px;
 }
+
+/*Formulaires*/
+form{
+    margin-right: 20%;
+    margin-left: 20%;
+}
+.form-group{
+    margin-bottom: 10px;
+}

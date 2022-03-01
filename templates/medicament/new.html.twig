@@ -5,8 +5,45 @@
 {% block body %}
     <a class="btn btn-primary" href="{{ path('medicament_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
     <br><br>
+    <form name="medicament" method="POST">
+        <h1>Créer un nouveau Medicament</h1>
 
-    <h1>Créer un nouveau Medicament</h1>
+        <div class="form-group">
+            <label>Nom</label>
+            <input class="form-control" type="text" name="medicament[med_nomcommercial]" required placeholder="Nom du médicament" maxlength="255">
+        </div>
+        <div class="form-group">
+            <label>Famille</label>
+            <select class="form-control">
+                {% if familles %}
+                    {% for famille in familles %}
+                        <option value="{{ famille.id }}">{{ famille.getFamLibelle() }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucune famille existante</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Composition</label>
+            <textarea class="form-control" rows="4" name="medicament[med_composition]" required placeholder="Entrez la composition du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Effets</label>
+            <textarea class="form-control" name="medicament[med_effets]" required placeholder="Entrez les effets du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Contre indications</label>
+            <textarea class="form-control" name="medicament[med_contreindic]" required placeholder="Entrez les contre-indications du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Prix</label>
+            <input class="form-control" name="medicament[med_prixechantillon]" type="number" placeholder="Prix en euro €">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success form-control" type="submit" value="Envoyer">
+        </div>
+    </form>
 
-    {{ include('medicament/_form.html.twig') }}
+{#    {{ include('medicament/_form.html.twig') }}#}
 {% endblock %}

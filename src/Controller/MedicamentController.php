@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
+use App\Repository\FamilleRepository;
 use App\Repository\MedicamentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,10 +29,13 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/new', name: 'medicament_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, FamilleRepository $familleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $listeFamille = $familleRepository->findAll();
+
+//        dd($listeFamille);
         $medicament = new Medicament();
         $form = $this->createForm(MedicamentType::class, $medicament);
         $form->handleRequest($request);
@@ -47,6 +51,7 @@ class MedicamentController extends AbstractController
         return $this->renderForm('medicament/new.html.twig', [
             'medicament' => $medicament,
             'form' => $form,
+            'familles' => $listeFamille
         ]);
     }
 
