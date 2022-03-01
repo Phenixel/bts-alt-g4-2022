@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interaction index{% endblock %}
+
+{% block body %}
+    <h1>Interaction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>MED_PERTURBATEUR</th>
+                <th>MED_MED_PERTURBE</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for interaction in interactions %}
+            <tr>
+                <td>{{ interaction.id }}</td>
+                <td>{{ interaction.MEDPERTURBATEUR }}</td>
+                <td>{{ interaction.MEDMEDPERTURBE }}</td>
+                <td>
+                    <a href="{{ path('interaction_show', {'id': interaction.id}) }}">show</a>
+                    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('interaction_new') }}">Create new</a>
+{% endblock %}
