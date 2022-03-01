@@ -18,11 +18,6 @@ class Dosage
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $DOS_CODE;
-
-    /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $DOS_QUANTITE;
@@ -35,18 +30,6 @@ class Dosage
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDOSCODE(): ?int
-    {
-        return $this->DOS_CODE;
-    }
-
-    public function setDOSCODE(int $DOS_CODE): self
-    {
-        $this->DOS_CODE = $DOS_CODE;
-
-        return $this;
     }
 
     public function getDOSQUANTITE(): ?string
