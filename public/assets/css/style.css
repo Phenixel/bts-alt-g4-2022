@@ -9,9 +9,7 @@
     background-color: whitesmoke;
 }
 #navbar{
-    padding: 250px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 10%;
     box-shadow: 0 5px 20px -5px;
     background-color: #c2f3fb;
 }
@@ -41,10 +39,10 @@
     color: white;
 }
 .icon_index:hover , .icon_nav:hover{
-    color: darkgreen;
+    color: darkblue;
 }
 .tr:hover{
-    background-color: #B7DBB0;
+    background-color: #c2f3fb;;
 }
 
 #versions{
@@ -67,7 +65,9 @@
 }
 #darkMode{
     border: none;
-    box-shadow: 0 0 20px 0 #8f8f8f;
+    box-shadow: 0 0 20px 0 #8f8f8f;''
+    background-color: white;
+    border-radius: 10px 10px 0 0;
 }
 .header-table{
     display: flex;

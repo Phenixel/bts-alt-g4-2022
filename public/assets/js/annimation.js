@@ -26,3 +26,20 @@ function passToDarkMode(){
     }
 
 }
+
+function hideNav(){
+
+    if($("#navbar").hasClass("hide"))
+    {
+        $("#navbar").removeClass('hide');
+        $("#upDown").removeClass('fa-angle-down').addClass("fa-angle-up");
+        $("#navbar").slideDown();
+    }
+    else
+    {
+        $("#navbar").addClass('hide');
+        $("#upDown").addClass('fa-angle-down').removeClass("fa-angle-up");
+        $("#navbar").slideUp();
+    }
+
+}
