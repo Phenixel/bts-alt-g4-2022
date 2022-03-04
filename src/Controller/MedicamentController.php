@@ -37,10 +37,28 @@ class MedicamentController extends AbstractController
 
 //        dd($listeFamille);
         $medicament = new Medicament();
-        $form = $this->createForm(MedicamentType::class, $medicament);
-        $form->handleRequest($request);
+//        $form = $this->createForm(MedicamentType::class, $medicament);
+//        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($medicament);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+//        }
+
+
+        if ($request->request->get("medicament")){
+//            dd($request->request);
+            $medicament = new Medicament();
+            $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+            $medicament->setFAMCODE($request->request->get("famille"));
+            $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+            $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+            $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+            $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($medicament);
             $entityManager->flush();
@@ -50,7 +68,6 @@ class MedicamentController extends AbstractController
 
         return $this->renderForm('medicament/new.html.twig', [
             'medicament' => $medicament,
-            'form' => $form,
             'familles' => $listeFamille
         ]);
     }
