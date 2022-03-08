@@ -35,18 +35,7 @@ class MedicamentController extends AbstractController
 
         $listeFamille = $familleRepository->findAll();
 
-//        dd($listeFamille);
         $medicament = new Medicament();
-//        $form = $this->createForm(MedicamentType::class, $medicament);
-//        $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($medicament);
-//            $entityManager->flush();
-//
-//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
-//        }
 
 
         if ($request->request->get("medicament")){
