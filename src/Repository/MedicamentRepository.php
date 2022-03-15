@@ -31,6 +31,16 @@ class MedicamentRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function maxPrescrit(){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            ''
+        );
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Medicament[] Returns an array of Medicament objects
     //  */

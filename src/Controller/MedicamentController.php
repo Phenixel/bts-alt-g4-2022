@@ -64,6 +64,8 @@ class MedicamentController extends AbstractController
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
     public function show(Medicament $medicament): Response
     {
+//        dd($medicament);
+
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         return $this->render('medicament/show.html.twig', [
