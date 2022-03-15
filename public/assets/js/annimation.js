@@ -9,3 +9,37 @@ function annimBack(){
         }, 400 * i);
     }
 }
+
+function passToDarkMode(){
+
+    if($("#table").hasClass("table-dark"))
+    {
+        $(".table").removeClass('table-dark');
+        $("#passDark").removeClass('fa-sun').addClass("fa-moon");
+        $(".icon_index").removeClass("icon_index_dark");
+    }
+    else
+    {
+        $(".table").addClass('table-dark');
+        $("#passDark").addClass('fa-sun').removeClass("fa-moon");
+        $(".icon_index").addClass("icon_index_dark");
+    }
+
+}
+
+function hideNav(){
+
+    if($("#navbar").hasClass("hide"))
+    {
+        $("#navbar").removeClass('hide');
+        $("#upDown").removeClass('fa-angle-down').addClass("fa-angle-up");
+        $("#navbar").slideDown();
+    }
+    else
+    {
+        $("#navbar").addClass('hide');
+        $("#upDown").addClass('fa-angle-down').removeClass("fa-angle-up");
+        $("#navbar").slideUp();
+    }
+
+}

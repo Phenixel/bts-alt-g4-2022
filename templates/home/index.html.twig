@@ -6,11 +6,12 @@
 
 <div class="main">
     <div class="graphique_gauche">
-        <canvas id="myChart" width="400px" height="400px"></canvas>
+{#        <canvas id="myChart" width="400px" height="400px"></canvas>#}
+        <canvas id="graphiqueGauche" aria-label="chart" role="img"></canvas>
     </div>
 
     <div class="graphique_droite">
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="graphiqueDroite" aria-label="chart" role="img"></canvas>
     </div>
 </div>
 
@@ -19,4 +20,8 @@
 {% block javascripts %}
     <script src="/node_modules/chart.js/dist/chart.js"></script>
     <script src="/assets/js/chart.js"></script>
+
+    <script>
+
+    </script>
 {% endblock %}

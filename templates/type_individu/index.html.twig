@@ -3,8 +3,15 @@
 {% block title %}TypeIndividu index{% endblock %}
 
 {% block body %}
-    <h1>Type Individu <a href="{{ path('type_individu_new') }}" class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
-    <table class="table table-striped">
+    <div class="header-table">
+        <h1>Types d'individus</h1>
+    </div>
+
+    <div class="sup_table">
+        <button class="dark_mode" id="darkMode" onclick="passToDarkMode()"><i id="passDark" class="fas fa-moon"></i></button>
+        <a href="{{ path('type_individu_new') }}" class="btn btn-success" role="button" aria-disabled="true">Créer un nouveau</a>
+    </div>
+    <table id="table" class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>

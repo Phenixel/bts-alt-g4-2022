@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
+use App\Repository\FamilleRepository;
 use App\Repository\MedicamentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,15 +29,25 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/new', name: 'medicament_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, FamilleRepository $familleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $medicament = new Medicament();
-        $form = $this->createForm(MedicamentType::class, $medicament);
-        $form->handleRequest($request);
+        $listeFamille = $familleRepository->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $medicament = new Medicament();
+
+
+        if ($request->request->get("medicament")){
+//            dd($request->request);
+            $medicament = new Medicament();
+            $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+            $medicament->setFAMCODE($request->request->get("famille"));
+            $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+            $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+            $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+            $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($medicament);
             $entityManager->flush();
@@ -46,7 +57,7 @@ class MedicamentController extends AbstractController
 
         return $this->renderForm('medicament/new.html.twig', [
             'medicament' => $medicament,
-            'form' => $form,
+            'familles' => $listeFamille
         ]);
     }
 
