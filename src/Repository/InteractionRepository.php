@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Interraction;
+use App\Entity\Interaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Interraction|null find($id, $lockMode = null, $lockVersion = null)
- * @method Interraction|null findOneBy(array $criteria, array $orderBy = null)
- * @method Interraction[]    findAll()
- * @method Interraction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Interaction|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Interaction|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Interaction[]    findAll()
+ * @method Interaction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class InteractionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Interraction::class);
+        parent::__construct($registry, Interaction::class);
     }
 
     // /**
-    //  * @return Interraction[] Returns an array of Interraction objects
+    //  * @return Interaction[] Returns an array of Interaction objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class InteractionRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Interraction
+    public function findOneBySomeField($value): ?Interaction
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')
