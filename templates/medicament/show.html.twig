@@ -3,11 +3,11 @@
 {% block title %}Medicament{% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary" href="{{ path('medicament_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+    <div class="header-table">
+        <h1>Medicament</h1>
+    </div>
 
-    <br><br>
-
-    <h1>Medicament</h1>
+    <br>
 
     <table class="table">
         <tbody>
@@ -42,7 +42,7 @@
         </tbody>
     </table>
 
-    <div class="list-btn">
+    <div class="sup_table">
         <a class="btn btn-secondary" href="{{ path('medicament_edit', {'id': medicament.id}) }}">Modifier</a>
         {{ include('medicament/_delete_form.html.twig') }}
     </div>

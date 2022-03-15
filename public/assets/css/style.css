@@ -9,11 +9,9 @@
     background-color: whitesmoke;
 }
 #navbar{
-    padding: 250px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-shadow: 0 5px 20px 0;
-    background-color: #9bffeb;
+    padding: 20px 10%;
+    box-shadow: 0 5px 20px -5px;
+    background-color: #c2f3fb;
 }
 #navbarNav{
     justify-content: center;
@@ -33,15 +31,18 @@
 .content{
     margin: 50px;
 }
-.icon_index{
+.icon_index, .icon_nav{
     color: black;
     width: 30px;
 }
-.icon_index:hover{
-    color: darkgreen;
+.icon_index_dark{
+    color: white;
+}
+.icon_index:hover , .icon_nav:hover{
+    color: darkblue;
 }
 .tr:hover{
-    background-color: #B7DBB0;
+    background-color: #c2f3fb;;
 }
 
 #versions{
@@ -53,10 +54,59 @@
     font-weight : bold;
 }
 
-.list-btn{
-    margin-top: 30px;
-    display: flex;
-}
 .btn-need-marge{
     margin-left: 50px;
+}
+
+/* Home */
+.main{
+    display: flex;
+}
+.graphique_droite, .graphique_gauche{
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-self: center;
+}
+
+/*Tableaux*/
+.table{
+    background-color: white;
+    box-shadow: 0 0 20px 0 #8f8f8f;
+    border-radius: 0 0 15px 15px;
+}
+#darkMode{
+    border: none;
+    box-shadow: 0 0 20px 0 #8f8f8f;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+}
+.header-table{
+    display: flex;
+    justify-content: center;
+}
+.sup_table{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-success{
+    align-self: center;
+}
+
+/*Formulaires*/
+.form{
+    margin-right: 30%;
+    margin-left: 30%;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 0 20px 0 #8f8f8f;
+}
+.form-group{
+    margin-bottom: 15px;
+}
+
+/*Show*/
+.show-table{
+
 }

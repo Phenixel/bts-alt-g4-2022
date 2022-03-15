@@ -1,12 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Medicament{% endblock %}
+{% block title %}Ajouter un médicament{% endblock %}
+
+{% block stylesheets %}
+    <link href="/assets/css/annimations.css" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary" href="{{ path('medicament_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
-    <br><br>
+    <form class="form" name="medicament" method="POST">
+        <h1>Créer un nouveau Medicament</h1>
 
-    <h1>Créer un nouveau Medicament</h1>
+        <div class="form-group">
+            <label>Nom</label>
+            <input class="form-control" type="text" name="medicament[med_nomcommercial]" required placeholder="Nom du médicament" maxlength="255">
+        </div>
+        <div class="form-group">
+            <label>Famille</label>
+            <select name="famille" class="form-control">
+                {% if familles %}
+                    {% for famille in familles %}
+                        <option value="{{ famille.id }}">{{ famille.getFamLibelle() }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option>Aucune famille existante</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Composition</label>
+            <textarea class="form-control" rows="4" name="medicament[med_composition]" required placeholder="Entrez la composition du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Effets</label>
+            <textarea class="form-control" name="medicament[med_effets]" required placeholder="Entrez les effets du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Contre indications</label>
+            <textarea class="form-control" name="medicament[med_contreindic]" required placeholder="Entrez les contre-indications du médicament"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Prix</label>
+            <input class="form-control" name="medicament[med_prixechantillon]" type="number" placeholder="Prix en euro €">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success form-control" type="submit" value="Envoyer" onclick="valideAdd()">
+            <div class="confirm_add">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <defs>
+                        <clipPath id="clipIt">
+                            <circle
+                                    fill="black"
+                                    r="35"
+                                    cy="50"
+                                    cx="50"
+                            />
+                        </clipPath>
+                    </defs>
+                    <path
+                            class="utveckling"
+                            d="M 49.99955,21.646452 A 28.35355,28.353548 0 0 0 21.646,50
+                    28.35355,28.353548 0 0 0 49.99955,78.353548
+                    28.35355,28.353548 0
+                    0 0 78.3531,50 28.35355,28.353548 0 0 0 49.99955,21.646452
+                    Z"
+                    />
+                    <g class="cut" clip-path="url(#clipIt)">
+                        <circle
+                                r="35"
+                                cy="50"
+                                cx="50"
+                                style="opacity:1;fill:#1939ff;fill-opacity:1;stroke:none;stroke-width:12.9174"
+                        />
+                        <g class="pil">
+                            <path
+                                    d="m 40.056531,47.971893 9.914191,-9.514425
+                                    9.994144,9.514425"
+                                    style="fill:none;stroke:#ffffff;stroke-width:3.8;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+                            />
+                            <path
+                                    d="M 49.970722,38.457468 V 61.56393"
+                                    style="fill:none;stroke:#ffffff;stroke-width:3.8;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+                            />
+                        </g>
+                        <path
+                                class="bock"
+                                d="m 49.533063,13 c 0,0
+                                        -4.038975,0.243204 -7.084664,1.6
+                                        -10.965877,4.88509 -12.03936,12.900449
+                                        -12.029016,15.995361 0.02524,7.552595
+                                        4.607455,12.168562 6.129905,13.956538 C
+                                        41.41924,50.271203 47.447623,56.491
+                                        47.447623,56.491 L 63.320719,42.911532"
+                        />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </form>
 
-    {{ include('medicament/_form.html.twig') }}
+    {% block javascripts %}
+        <script>
+            $(".confirm_add").css("display","none");
+
+            function valideAdd(){
+                $(".confirm_add").css("display","");
+            };
+        </script>
+    {% endblock %}
+
+
+{#    {{ include('medicament/_form.html.twig') }}#}
 {% endblock %}
