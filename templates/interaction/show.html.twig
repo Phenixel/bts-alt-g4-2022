@@ -3,6 +3,10 @@
 {% block title %}Interaction{% endblock %}
 
 {% block body %}
+    <a class="btn btn-primary" href="{{ path('prescrire_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
+
+    <br><br>
+
     <h1>Interaction</h1>
 
     <table class="table">
@@ -22,9 +26,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('interaction_index') }}">back to list</a>
-
-    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}">edit</a>
-
-    {{ include('interaction/_delete_form.html.twig') }}
+    <div class="list-btn">
+        <a class="btn btn-secondary" href="{{ path('interaction_edit', {'id': interaction.id}) }}">Modifier</a>
+    </div>
 {% endblock %}

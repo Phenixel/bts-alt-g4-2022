@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
 use App\Repository\FamilleRepository;
+use App\Repository\InteractionRepository;
 use App\Repository\MedicamentRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,6 @@ class MedicamentController extends AbstractController
 
         $medicamentAll = $medicamentRepository->findFamille();
 //        dd($medicamentAll);
-
 
         return $this->render('medicament/index.html.twig', [
             'medicaments' => $medicamentAll,
@@ -62,14 +63,17 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
-    public function show(Medicament $medicament): Response
+    public function show(Medicament $medicament, InteractionRepository $interactionRepository): Response
     {
-//        dd($medicament);
-
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $listeInteractions = $interactionRepository->findInteraction(3);
+
+//        dd($listeInteractions);
 
         return $this->render('medicament/show.html.twig', [
             'medicament' => $medicament,
+            'interaction' => $listeInteractions
         ]);
     }
 

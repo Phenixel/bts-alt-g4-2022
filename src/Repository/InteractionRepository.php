@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Interaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method Interaction|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,16 @@ class InteractionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Interaction::class);
+    }
+
+    public function findInteraction(int $n){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m.MED_NOMCOMMERCIAL FROM App\Entity\Medicament as m, App\Entity\Interaction as i WHERE i.MED_MED_PERTURBE = m.id AND i.MED_PERTURBATEUR =' + $n
+        );
+
+        return $query->getResult();
     }
 
     // /**

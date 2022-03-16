@@ -3,33 +3,39 @@
 {% block title %}Prescrire index{% endblock %}
 
 {% block body %}
-    <h1>Prescriptions <a href="{{ path('prescrire_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
+    <div class="header-table">
+        <h1>Prescriptions</h1>
+    </div>
 
-    <table class="table">
+    <div class="sup_table">
+        <button class="dark_mode" id="darkMode" onclick="passToDarkMode()"><i id="passDark" class="fas fa-moon"></i></button>
+        <a href="{{ path('prescrire_new') }}"class="btn btn-success" role="button" aria-disabled="true">Créer un nouveau</a>
+    </div>
+    <table id="table" class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+{#                <th>Id</th>#}
                 <th>Médicament</th>
                 <th>Type individu</th>
                 <th>Dosage</th>
-                <th>actions</th>
+{#                <th>actions</th>#}
             </tr>
         </thead>
         <tbody>
         {% for prescrire in prescrires %}
             <tr class="tr">
-                <td>{{ prescrire.id }}</td>
+{#                <td>{{ prescrire.id }}</td>#}
                 <td>{{ prescrire.MedDepotlegal }}</td>
                 <td>{{ prescrire.tinCode }}</td>
                 <td>{{ prescrire.dosCode }}</td>
-                <td>
-                    <a href="{{ path('prescrire_show', {'id': prescrire.id}) }}"><i class="icon_index fas fa-eye"></i></a>
-                    <a href="{{ path('prescrire_edit', {'id': prescrire.id}) }}"><i class="icon_index fas fa-pen"></i></a>
-                </td>
+{#                <td>#}
+{#                    <a href="{{ path('prescrire_show', {'id': prescrire.id}) }}"><i class="icon_index fas fa-eye"></i></a>#}
+{#                    <a href="{{ path('prescrire_edit', {'id': prescrire.id}) }}"><i class="icon_index fas fa-pen"></i></a>#}
+{#                </td>#}
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

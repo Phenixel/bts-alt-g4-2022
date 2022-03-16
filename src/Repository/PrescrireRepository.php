@@ -19,6 +19,16 @@ class PrescrireRepository extends ServiceEntityRepository
         parent::__construct($registry, Prescrire::class);
     }
 
+    public function findPrescription(){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            ''
+        );
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Prescrire[] Returns an array of Prescrire objects
     //  */
