@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Interaction;
 use App\Form\InteractionType;
-use App\Repository\InterractionRepository;
+use App\Repository\InteractionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class InteractionController extends AbstractController
 {
     #[Route('/', name: 'interaction_index', methods: ['GET'])]
-    public function index(InterractionRepository $interractionRepository): Response
+    public function index(InteractionRepository $interactionRepository): Response
     {
         return $this->render('interaction/index.html.twig', [
-            'interactions' => $interractionRepository->findAll(),
+            'interactions' => $interactionRepository->findAll(),
         ]);
     }
 

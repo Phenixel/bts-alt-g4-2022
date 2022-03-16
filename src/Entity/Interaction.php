@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\InterractionRepository;
+use App\Repository\InteractionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=InterractionRepository::class)
+ * @ORM\Entity(repositoryClass=InteractionRepository::class)
  */
 class Interaction
 {
