@@ -66,9 +66,16 @@
 
 .infosP{
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     text-align: center;
-    margin: 0 10% 0 10%;
+    /*margin: 0 10% 0 10%;*/
+}
+
+.contentPMPresc {
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-self: center;
 }
 
 .graphique_droite, .graphique_gauche{
