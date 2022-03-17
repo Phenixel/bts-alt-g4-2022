@@ -61,7 +61,16 @@
 /* Home */
 .main{
     display: flex;
+    text-align: center;
 }
+
+.infosP{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin: 0 10% 0 10%;
+}
+
 .graphique_droite, .graphique_gauche{
     width: 100%;
     margin-left: 10%;
@@ -109,4 +118,15 @@
 /*Show*/
 .show-table{
 
+}
+
+/* DarkMode */
+#darkModeGeneral{
+    background-color: #252537;
+    color: white;
+}
+
+/* Selection */
+::selection{
+    background-color: rgba(194, 243, 251, 0.6);
 }

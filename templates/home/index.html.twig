@@ -6,25 +6,32 @@
 
 {% block body %}
 
+    <div class="main">
+        <div class="graphique_gauche"><h3>Nombre de médicament par famille</h3></div>
+        <div class="graphique_droite"><h3>Nombre de prescription par type individu</h3></div>
+    </div>
 <div class="main">
     <div class="graphique_gauche">
-        <h3>Les familles les plus utilisées</h3>
-{#        <canvas id="myChart" width="400px" height="400px"></canvas>#}
         <canvas id="graphiqueGauche" aria-label="chart" role="img"></canvas>
     </div>
 
     <div class="graphique_droite">
-        <h3>Les familles les plus utilisées</h3>
         <canvas id="graphiqueDroite" aria-label="chart" role="img"></canvas>
     </div>
 </div>
 
-    <hr style="margin: 20px 0 20px 0" >
+    <hr style="margin: 5% 0 1% 0" >
 
-<div>
-    <h3>Medicament le plus prescrit</h3>
+<div class="infosP">
+    <div>
+        <h5>Medicament le plus prescrit</h5>
+        <h3>Nom générique</h3>
+    </div>
 
-
+    <div>
+        <h5>Medicament le moins prescrit</h5>
+        <h3>Nom générique</h3>
+    </div>
 </div>
 
 {% endblock %}
