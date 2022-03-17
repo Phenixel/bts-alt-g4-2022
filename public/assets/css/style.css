@@ -127,6 +127,12 @@
 }
 
 /* Footer */
+.footer{
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
 .inner-header {
     height:65vh;
     width:100%;
