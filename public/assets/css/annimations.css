@@ -94,3 +94,60 @@
         transform: translateY(-65px);
     }
 }
+
+/*Animation apparition médicament plus et moins prescrit*/
+.txtPMPresc {
+    color: #222;
+    color: transparent;
+    font-size: 0px;
+}
+.txtPMPresc .animationSpan {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    font-size: clamp(20px, 3vw, 30px);
+}
+.txtPMPresc .animationSpan::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+}
+.txtPMPresc:nth-child(1) {
+    font-weight: 200;
+    animation: txt-appearance 0s 1s forwards;
+}
+.txtPMPresc:nth-child(2) {
+    font-weight: bold;
+    animation: txt-appearance 0s 1.25s forwards;
+}
+.txtPMPresc:nth-child(1) .animationSpan::after {
+    background: rgb(194, 243, 251);
+    animation: slide-in 0.75s ease-out forwards,
+    slide-out 0.75s 1s ease-out forwards;
+}
+.txtPMPresc:nth-child(2) .animationSpan::after {
+    background: rgb(77, 231, 255);
+    animation: slide-in 0.75s 0.3s ease-out forwards,
+    slide-out 0.75s 1.3s ease-out forwards;
+}
+
+@keyframes slide-in {
+    100% {
+        transform: translateX(0%);
+    }
+}
+@keyframes slide-out {
+    100% {
+        transform: translateX(103%)
+    }
+}
+@keyframes txt-appearance {
+    100% {
+        color: #222;
+    }
+}
