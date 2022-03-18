@@ -9,6 +9,13 @@
 $ git clone git@github.com:ort-france/bts-alt-g4-2022.git
 ```
 
+## Configuration du .env
+- Renomer "env.exemple" en ".env"
+- Configurer les différentes informations demandées
+    - Lien vers la BDD
+    - Lien vers sentry
+    - Lien vers Mailtrap
+
 ## installer composer
 ```bash
 $ composer install
@@ -18,6 +25,11 @@ $ composer install
 
 ```bash
 $ symfony console doctrine:migrations:migrate
+```
+
+### Importation du jeu de données
+```bash
+$ symfony console doctrine:fixtures:load
 ```
 
 ---
