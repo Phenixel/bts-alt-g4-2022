@@ -63,11 +63,11 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
-    public function show(Medicament $medicament, InteractionRepository $interactionRepository): Response
+    public function show(Medicament $medicament, InteractionRepository $interactionRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $listeInteractions = $interactionRepository->findInteraction(3);
+        $listeInteractions = $interactionRepository->findInteraction($id);
 
 //        dd($listeInteractions);
 

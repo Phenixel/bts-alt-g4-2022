@@ -20,12 +20,13 @@ class InteractionRepository extends ServiceEntityRepository
         parent::__construct($registry, Interaction::class);
     }
 
-    public function findInteraction(int $n){
+    public function findInteraction(int $idMedic){
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT m.MED_NOMCOMMERCIAL FROM App\Entity\Medicament as m, App\Entity\Interaction as i WHERE i.MED_MED_PERTURBE = m.id AND i.MED_PERTURBATEUR =' + $n
-        );
+            'SELECT m.MED_NOMCOMMERCIAL FROM App\Entity\Medicament as m, App\Entity\Interaction as i 
+            WHERE i.MED_MED_PERTURBE = m.id AND i.MED_PERTURBATEUR = :idMedic'
+        )->setParameters(array('idMedic' => $idMedic));
 
         return $query->getResult();
     }
