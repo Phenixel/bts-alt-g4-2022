@@ -60,7 +60,7 @@ class DataFixtures extends Fixture
         $faker->addProvider(new \Bezhanov\Faker\Provider\Medicine($faker));
         $saveMedicament = [];
 
-        for ($i = 0; $i < 500; $i++){
+        for ($m = 0; $m < 500; $m++){
             $medicament = new Medicament();
             $medicament->setMEDNOMCOMMERCIAL($faker->medicine);
             $medicament->setFAMCODE(random_int(0, (count($saveFamille) - 1)));
@@ -72,18 +72,21 @@ class DataFixtures extends Fixture
             $manager->persist($medicament);
             $manager->flush();
 
-            $saveMedicament[$i] = $medicament->getId();
+            $saveMedicament[$m] = $medicament->getId();
         }
 
 //        Dosage
-        $dosage = array("");
+        $dosQuantite = ["2 Pillules","1 comprimé","1 cuillère à café","10 cl","1 sachet","1 ampoule","1 seringue","30 cl","1 patch","1 suppositoire"];
+        $dosUnite = ["3 fois par jours","2 fois par jours","autant que nécessaire","Tous les soirs","Après chaque repas","Au réveil","Avant de dormir","En cas de douleur","Tous les 3 heures","Tous les 6 heures"];
         $saveDosage = [];
         $d=0;
-        foreach ($dosage as $vDosage){
+        foreach ($dosQuantite as $vDosage){
             $dosage = new Dosage();
-
             $dosage->setDOSQUANTITE($vDosage);
-            $dosage->setDOSUNITE();
+
+            foreach ($dosUnite as $vUDosage){
+                $dosage->setDOSUNITE($vUDosage);
+            }
 
             $manager->persist($dosage);
             $manager->flush();
