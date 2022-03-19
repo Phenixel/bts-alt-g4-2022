@@ -19,6 +19,18 @@ class PrescrireRepository extends ServiceEntityRepository
         parent::__construct($registry, Prescrire::class);
     }
 
+    public function findNomsPrescription(){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p.id, m.MED_NOMCOMMERCIAL, t.tin_libelle, d.DOS_QUANTITE, d.DOS_UNITE
+             FROM App\Entity\Medicament as m, App\Entity\TypeIndividu as t, App\Entity\Dosage as d, App\Entity\Prescrire as p
+             WHERE m.id = p.Med_depotlegal AND t.id = p.tin_code AND d.id = p.dos_code'
+        );
+
+        return $query->getResult();
+    }
+
     public function findPrescription(){
         $entityManager = $this-> getEntityManager();
 
