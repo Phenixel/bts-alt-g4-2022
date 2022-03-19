@@ -18,7 +18,7 @@ class Prescrire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $Med_depotlegal;
 
@@ -37,7 +37,7 @@ class Prescrire
         return $this->id;
     }
 
-    public function getMedDepotlegal(): ?string
+    public function getMedDepotlegal(): ?int
     {
         return $this->Med_depotlegal;
     }

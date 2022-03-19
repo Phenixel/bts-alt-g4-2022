@@ -37,7 +37,7 @@ class PrescrireController extends AbstractController
         $listeTY = $TypeIndividuRespository->findAll();
         $listeDosage = $DosageRepository->findAll();
         $prescrire = new Prescrire();
-
+//            dd($request->request->get("prescrire"));
 
 
         if ($request->request->get("prescrire")) {
