@@ -18,8 +18,10 @@ class PrescrireController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $prescrireAll = $prescrireRepository->findNomsPrescription();
+
         return $this->render('prescrire/index.html.twig', [
-            'prescrires' => $prescrireRepository->findAll(),
+            'prescrires' => $prescrireAll,
         ]);
     }
 
