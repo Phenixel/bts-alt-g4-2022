@@ -84,6 +84,16 @@
     margin-right: 10%;
     align-self: center;
 }
+/* Show */
+.navigation_medic{
+    display: flex;
+    justify-content: space-between;
+    /*margin-top: 100px;*/
+}
+.link_nav_medic{
+    color: #252537;
+    text-decoration: none;
+}
 
 /*Tableaux*/
 .table{

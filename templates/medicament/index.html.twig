@@ -4,6 +4,10 @@
 
 {% block activeM %}active{% endblock %}
 
+{% block stylesheets %}
+    <link href="/assets/css/annimations.css" rel="stylesheet">
+{%  endblock %}
+
 {% block body %}
     <div class="header-table">
         <h1>Medicaments</h1>
@@ -11,17 +15,15 @@
 
     <div class="sup_table">
         <button class="dark_mode" id="darkMode" onclick="passToDarkMode()"><i id="passDark" class="fas fa-moon"></i></button>
-        <a href="{{ path('medicament_new') }}"class="btn btn-success" role="button" aria-disabled="true">Créer un nouveau</a>
+        <a href="{{ path('medicament_new') }}" class="btn btn-success" role="button" aria-disabled="true">Créer un nouveau</a>
     </div>
     <table id="table" class="table table-striped">
         <thead>
             <tr>
-{#                <th>Id</th>#}
                 <th>Nom</th>
                 <th>Famille</th>
                 <th>Composition</th>
                 <th>Effets</th>
-{#                <th>Contre-indication</th>#}
                 <th style="width: 70px;">Prix</th>
                 <th>Actions</th>
             </tr>
@@ -29,12 +31,10 @@
         <tbody>
         {% for medicament in medicaments %}
             <tr class="tr">
-{#                <td>{{ medicament['id'] }}</td>#}
                 <td>{{ medicament['MED_NOMCOMMERCIAL'] }}</td>
                 <td>{{ medicament['fam_libelle'] }}</td>
                 <td>{{ medicament['MED_COMPOSITION'] }}</td>
                 <td>{{ medicament['MED_EFFETS'] }}</td>
-{#                <td>{{ medicament['MED_CONTREINDIC'] }}</td>#}
                 <td>{{ medicament['MED_PRIXECHANTILLON'] }} €</td>
                 <td>
                     <a href="{{ path('medicament_show', {'id': medicament.id}) }}"><i class="icon_index fas fa-eye"></i></a>

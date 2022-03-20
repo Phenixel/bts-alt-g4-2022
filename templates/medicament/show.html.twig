@@ -9,7 +9,15 @@
         <h1>Medicament</h1>
     </div>
 
-    <br>
+    <div class="navigation_medic">
+        {% if {'id': medicament.id - 1} %}
+        <a class="link_nav_medic" href="{{ path('medicament_show', {'id': medicament.id - 1}) }}"><i class="fas fa-arrow-left"></i> Précédent médicament</a>
+        {% else %}{% endif %}
+
+        {% if {'id': medicament.id + 1} %}
+        <a class="link_nav_medic" href="{{ path('medicament_show', {'id': medicament.id + 1}) }}">Prochain médicament <i class="fas fa-arrow-right"></i></a>
+        {% else %}{% endif %}
+    </div>
 
     <table class="table">
         <tbody>
@@ -49,6 +57,7 @@
         {{ include('medicament/_delete_form.html.twig') }}
     </div>
 
+    {% for interaction in interaction %}
     <hr style="margin: 20px 0 20px 0" >
     <h3>Interractions</h3>
 
@@ -59,16 +68,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for interaction in interaction %}
             <tr>
                 <td>{{ interaction.MED_NOMCOMMERCIAL }}</td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
         </tbody>
     </table>
+    {% else %}
+        <hr style="margin: 20px 0 20px 0" >
+        <h3>Aucune interractions</h3>
+        <p><i>Ce médicament ne comporte aucune interaction avec d'autre médicament de notre base de données.</i></p>
+    {% endfor %}
+
 
 {% endblock %}
