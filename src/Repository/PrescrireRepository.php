@@ -31,12 +31,12 @@ class PrescrireRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findPrescription(){
+    public function findPrescription(int $DepotLegal, int $tinCode, int $dosCode){
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            ''
-        );
+            'SELECT P.id FROM App\Entity\Prescrire as P WHERE Med_depotlegal = medDepot AND tin_code = tinCode AND dos_code = dosCode'
+        )->setParameters(array('medDepot' => $DepotLegal, 'tinCode' => $tinCode, 'dosCode' => $dosCode));
 
         return $query->getResult();
     }

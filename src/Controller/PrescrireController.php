@@ -37,7 +37,6 @@ class PrescrireController extends AbstractController
         $listeTY = $TypeIndividuRespository->findAll();
         $listeDosage = $DosageRepository->findAll();
         $prescrire = new Prescrire();
-//            dd($request->request->get("prescrire"));
 
 
         if ($request->request->get("prescrire")) {
@@ -45,6 +44,7 @@ class PrescrireController extends AbstractController
             $prescrire->setMedDepotlegal($request->request->get("medicament"));
             $prescrire->setTinCode($request->request->get("individu"));
             $prescrire->setDosCode($request->request->get("dosage"));
+            dd($request->request);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prescrire);
