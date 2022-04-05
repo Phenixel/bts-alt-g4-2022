@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
 use App\Repository\FamilleRepository;
+use App\Repository\InteractionRepository;
 use App\Repository\MedicamentRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,6 @@ class MedicamentController extends AbstractController
 
         $medicamentAll = $medicamentRepository->findFamille();
 //        dd($medicamentAll);
-
 
         return $this->render('medicament/index.html.twig', [
             'medicaments' => $medicamentAll,
@@ -62,34 +63,73 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
-    public function show(Medicament $medicament): Response
+    public function show(Medicament $medicament, InteractionRepository $interactionRepository, $id): Response
     {
-//        dd($medicament);
-
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $listeInteractions = $interactionRepository->findInteraction($id);
+
+//        dd($listeInteractions);
 
         return $this->render('medicament/show.html.twig', [
             'medicament' => $medicament,
+            'interaction' => $listeInteractions
         ]);
     }
 
     #[Route('/{id}/edit', name: 'medicament_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Medicament $medicament): Response
+    public function edit(Request $request, Medicament $medicament, FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $form = $this->createForm(MedicamentType::class, $medicament);
-        $form->handleRequest($request);
+//        $form = $this->createForm(MedicamentType::class, $medicament);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+//
+//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+//        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $listeFamille = $familleRepository->findAll();
+
+        $medicament = $medicamentRepository->getUnMedic($id);
+//        dd($request->request->get("medicament"));
+
+        $default = [
+            "nom" => $medicament[0]["MED_NOMCOMMERCIAL"],
+            "famille" => $medicament[0]["fam_libelle"],
+            "composition" => $medicament[0]["MED_COMPOSITION"],
+            "effets" => $medicament[0]["MED_EFFETS"],
+            "contre" => $medicament[0]["MED_CONTREINDIC"],
+            "prix" => $medicament[0]["MED_PRIXECHANTILLON"],
+        ];
+
+        if ($request->request->get("medicament")){
+//            dd($request->request->get("medicament")["med_nomcommercial"]);
+
+            $nomMedic = $request->request->get("medicament")["med_nomcommercial"];
+            $famCode = $request->request->get("famille");
+            $compo = $request->request->get("medicament")["med_composition"];
+            $effets = $request->request->get("medicament")["med_effets"];
+            $contre = $request->request->get("medicament")["med_contreindic"];
+            $prix = $request->request->get("medicament")["med_prixechantillon"];
+
+            $medicament = $medicamentRepository->setModifMedic(
+                $nomMedic, $famCode, $compo, $effets, $contre, $prix, $id
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($medicament);
+            $entityManager->flush();
 
             return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('medicament/edit.html.twig', [
             'medicament' => $medicament,
-            'form' => $form,
+            'familles' => $listeFamille,
+            'default' => $default
         ]);
     }
 

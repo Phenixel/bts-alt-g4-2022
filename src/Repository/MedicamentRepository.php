@@ -31,11 +31,45 @@ class MedicamentRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function getUnMedic(int $leMedic){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m.id, m.MED_NOMCOMMERCIAL, f.fam_libelle, m.MED_COMPOSITION, m.MED_EFFETS, m.MED_CONTREINDIC, m.MED_PRIXECHANTILLON
+            FROM App\Entity\Medicament as m, App\Entity\Famille as f
+            WHERE f.id = m.FAM_CODE AND m.id = :idMedic'
+        )->setParameters(array('idMedic' => $leMedic));
+
+        return $query->getResult();
+    }
+
+    public function setModifMedic(string $nomMedic, int $famCode, string $compo, string $effets, string $contre, float $prix, int $leMedic){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'UPDATE App\Entity\Medicament 
+            SET MED_NOMCOMMERCIAL = :nom ,FAM_CODE = :fam,MED_COMPOSITION = :compo,MED_EFFETS = :effets,MED_CONTREINDIC = :contre,MED_PRIXECHANTILLON = :prix WHERE MED_DEPOTLEGAL = :idMedic'
+        )->setParameters(array(
+            'nom' => $nomMedic,
+            'fam' =>$famCode,
+            'compo' => $compo,
+            'effets' => $effets,
+            'contre' => $contre,
+            'prix' => $prix,
+            'idMedic' => $leMedic
+        ));
+
+        return $query->getResult();
+    }
+
     public function maxPrescrit(){
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            ''
+            'SELECT medicament.MED_NOMCOMMERCIAL FROM medicament 
+            INNER JOIN prescrire ON medicament.MED_DEPOTLEGAL=prescrire.MED_DEPOTLEGAL 
+            GROUP BY medicament.MED_NOMCOMMERCIAL HAVING COUNT(*) = 
+            ( SELECT MAX(nb) FROM (SELECT MED_DEPOTLEGAL,COUNT(MED_DEPOTLEGAL) as nb FROM prescrire GROUP BY MED_DEPOTLEGAL) as temp)'
         );
 
         return $query->getResult();

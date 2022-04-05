@@ -2,6 +2,8 @@
 
 {% block title %}Prescrire{% endblock %}
 
+{% block activeP %}active{% endblock %}
+
 {% block body %}
     <a class="btn btn-primary" href="{{ path('prescrire_index') }}"><i class="fas fa-arrow-left"></i> Revenir à la liste</a>
 
@@ -32,6 +34,5 @@
 
     <div class="list-btn">
         <a class="btn btn-secondary" href="{{ path('prescrire_edit', {'id': prescrire.id}) }}">Modifier</a>
-        {{ include('prescrire/_delete_form.html.twig') }}
     </div>
 {% endblock %}

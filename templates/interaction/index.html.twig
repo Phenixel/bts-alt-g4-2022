@@ -3,7 +3,7 @@
 {% block title %}Interaction index{% endblock %}
 
 {% block body %}
-    <h1>Interaction index</h1>
+    <h1>Interaction <a href="{{ path('interaction_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
 
     <table class="table">
         <thead>
@@ -21,8 +21,8 @@
                 <td>{{ interaction.MEDPERTURBATEUR }}</td>
                 <td>{{ interaction.MEDMEDPERTURBE }}</td>
                 <td>
-                    <a href="{{ path('interaction_show', {'id': interaction.id}) }}">show</a>
-                    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}">edit</a>
+                    <a href="{{ path('interaction_show', {'id': interaction.id}) }}"><i class="icon_index fas fa-eye"></i></a>
+                    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}"><i class="icon_index fas fa-pen"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +32,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('interaction_new') }}">Create new</a>
 {% endblock %}
