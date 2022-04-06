@@ -23,6 +23,10 @@ class DataFixtures extends Fixture
     }
 
     // ...
+
+    /**
+     * @throws \Exception
+     */
     public function load(ObjectManager $manager)
     {
 //        Familles
@@ -61,11 +65,19 @@ class DataFixtures extends Fixture
         $saveMedicament = [];
 
         for ($m = 0; $m < 500; $m++){
+            $fcompo_contents = file("compositions.txt");
+            $lineCompo = $fcompo_contents[array_rand($fcompo_contents)];
+            $dataComp = $lineCompo;
+
+            $fcontre_contents = file("contre.txt");
+            $lineContre = $fcontre_contents[array_rand($fcontre_contents)];
+            $dataContre = $lineContre;
+
             $medicament = new Medicament();
             $medicament->setMEDNOMCOMMERCIAL($faker->medicine);
             $medicament->setFAMCODE(random_int(0, (count($saveFamille) - 1)));
-            $medicament->setMEDCOMPOSITION();
-            $medicament->setMEDCONTREINDIC();
+            $medicament->setMEDCOMPOSITION($dataComp);
+            $medicament->setMEDCONTREINDIC($dataContre);
             $medicament->setMEDEFFETS();
             $medicament->setMEDPRIXECHANTILLON(random_int(10, 300)/10);
 
@@ -76,8 +88,18 @@ class DataFixtures extends Fixture
         }
 
 //        Dosage
-        $dosQuantite = ["2 Pillules","1 comprimé","1 cuillère à café","10 cl","1 sachet","1 ampoule","1 seringue","30 cl","1 patch","1 suppositoire"];
-        $dosUnite = ["3 fois par jours","2 fois par jours","autant que nécessaire","Tous les soirs","Après chaque repas","Au réveil","Avant de dormir","En cas de douleur","Tous les 3 heures","Tous les 6 heures"];
+        $dosQuantite = ["2 Pillules","1 comprimé",
+            "1 cuillère à café","10 cl",
+            "1 sachet","1 ampoule",
+            "1 seringue","30 cl",
+            "1 patch","1 suppositoire"
+        ];
+        $dosUnite = ["3 fois par jours","2 fois par jours",
+            "autant que nécessaire", "Tous les soirs",
+            "Après chaque repas","Au réveil",
+            "Avant de dormir","En cas de douleur",
+            "Tous les 3 heures","Tous les 6 heures"
+        ];
         $saveDosage = [];
         $d=0;
         foreach ($dosQuantite as $vDosage){
@@ -99,12 +121,17 @@ class DataFixtures extends Fixture
         for ($i = 0; $i < 20; $i++){
             $interaction = new Interaction();
             $posMedic = random_int(0, (count($saveMedicament) - 1));
-            $interaction->setMEDMEDPERTURBE($posMedic);
             $posMedic2 = random_int(0, (count($saveMedicament) - 1));
-            $interaction->setMEDPERTURBATEUR($posMedic2);
 
-            $manager->persist($interaction);
-            $manager->flush();
+            if ($posMedic !== $posMedic2){
+                $interaction->setMEDMEDPERTURBE($posMedic);
+                $interaction->setMEDPERTURBATEUR($posMedic2);
+
+                $manager->persist($interaction);
+                $manager->flush();
+            }else{
+                --$i;
+            }
         }
 
     }

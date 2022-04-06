@@ -115,9 +115,9 @@ class MedicamentController extends AbstractController
             $contre = $request->request->get("medicament")["med_contreindic"];
             $prix = $request->request->get("medicament")["med_prixechantillon"];
 
-            $medicament = $medicamentRepository->setModifMedic(
-                $nomMedic, $famCode, $compo, $effets, $contre, $prix, $id
-            );
+//            $medicament = $medicamentRepository->setModifMedic(
+//                $nomMedic, $famCode, $compo, $effets, $contre, $prix, $id
+//            );
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($medicament);
