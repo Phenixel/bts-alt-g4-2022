@@ -78,22 +78,14 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'medicament_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Medicament $medicament, FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository, $id): Response
+    public function edit(Request $request, FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-//        $form = $this->createForm(MedicamentType::class, $medicament);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->getDoctrine()->getManager()->flush();
-//
-//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
-//        }
 
         $listeFamille = $familleRepository->findAll();
 
         $medicament = $medicamentRepository->getUnMedic($id);
+
 //        dd($request->request->get("medicament"));
 
         $default = [
@@ -105,19 +97,22 @@ class MedicamentController extends AbstractController
             "prix" => $medicament[0]["MED_PRIXECHANTILLON"],
         ];
 
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+//
+//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+//        }
+
         if ($request->request->get("medicament")){
-//            dd($request->request->get("medicament")["med_nomcommercial"]);
+//            dd($request->request);
+            $medicament = Medicament();
 
-            $nomMedic = $request->request->get("medicament")["med_nomcommercial"];
-            $famCode = $request->request->get("famille");
-            $compo = $request->request->get("medicament")["med_composition"];
-            $effets = $request->request->get("medicament")["med_effets"];
-            $contre = $request->request->get("medicament")["med_contreindic"];
-            $prix = $request->request->get("medicament")["med_prixechantillon"];
-
-            $medicament = $medicamentRepository->setModifMedic(
-                $nomMedic, $famCode, $compo, $effets, $contre, $prix, $id
-            );
+            $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+            $medicament->setFAMCODE($request->request->get("famille"));
+            $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+            $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+            $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+            $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($medicament);
