@@ -78,23 +78,23 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'medicament_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository, $id): Response
+    public function edit(Request $request, Medicament $OMedicament,FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $listeFamille = $familleRepository->findAll();
 
-        $medicament = $medicamentRepository->getUnMedic($id);
+        $tabMedicament = $medicamentRepository->getUnMedic($id);
 
 //        dd($request->request->get("medicament"));
 
         $default = [
-            "nom" => $medicament[0]["MED_NOMCOMMERCIAL"],
-            "famille" => $medicament[0]["fam_libelle"],
-            "composition" => $medicament[0]["MED_COMPOSITION"],
-            "effets" => $medicament[0]["MED_EFFETS"],
-            "contre" => $medicament[0]["MED_CONTREINDIC"],
-            "prix" => $medicament[0]["MED_PRIXECHANTILLON"],
+            "nom" => $tabMedicament[0]["MED_NOMCOMMERCIAL"],
+            "famille" => $tabMedicament[0]["fam_libelle"],
+            "composition" => $tabMedicament[0]["MED_COMPOSITION"],
+            "effets" => $tabMedicament[0]["MED_EFFETS"],
+            "contre" => $tabMedicament[0]["MED_CONTREINDIC"],
+            "prix" => $tabMedicament[0]["MED_PRIXECHANTILLON"],
         ];
 
 //        if ($form->isSubmitted() && $form->isValid()) {
@@ -103,26 +103,27 @@ class MedicamentController extends AbstractController
 //            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
 //        }
 
+//        dd($OMedicament);
+
         if ($request->request->get("medicament")){
 //            dd($request->request);
-            $medicament = Medicament();
 
-            $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
-            $medicament->setFAMCODE($request->request->get("famille"));
-            $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
-            $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
-            $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
-            $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+            $OMedicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+            $OMedicament->setFAMCODE($request->request->get("famille"));
+            $OMedicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+            $OMedicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+            $OMedicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+            $OMedicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($medicament);
+            $entityManager->persist($OMedicament);
             $entityManager->flush();
 
             return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('medicament/edit.html.twig', [
-            'medicament' => $medicament,
+            'medicament' => $tabMedicament,
             'familles' => $listeFamille,
             'default' => $default
         ]);
