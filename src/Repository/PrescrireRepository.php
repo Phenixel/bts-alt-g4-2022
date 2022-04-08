@@ -41,6 +41,18 @@ class PrescrireRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    // Retourne le nombre de prescription par type d'individu pour le graphe 2
+    public function getPieChartPrescrire(){
+        $entityManager = $this->getEntityManager()->getConnection();
+        $query = 'SELECT type_individu.TIN_LIBELLE as libelle,COUNT(*) as total 
+                    FROM `prescrire` INNER JOIN type_individu 
+                    on prescrire.tin_code = type_individu.id 
+                    GROUP BY type_individu.tin_libelle';
+        $stmt=$entityManager->prepare($query);
+        $rest=$stmt->executeQuery();
+        return $rest->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Prescrire[] Returns an array of Prescrire objects
     //  */

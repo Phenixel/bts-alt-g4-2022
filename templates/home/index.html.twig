@@ -42,9 +42,16 @@
 
 {% block javascripts %}
     <script src="/node_modules/chart.js/dist/chart.js"></script>
-    <script src="/assets/js/chart.js"></script>
 
     <script>
+        let libelleTabMachin=[];
+        let totalTab=[];
+
+        {% for prescription in fonctionDoughnut %}
+            libelleTabMachin.push('{{ prescription['libelle'] }}');
+            totalTab.push('{{ prescription['total'] }}');
+        {% endfor %}
 
     </script>
+    <script src="/assets/js/chart.js"></script>
 {% endblock %}

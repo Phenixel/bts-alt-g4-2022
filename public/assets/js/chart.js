@@ -22,13 +22,14 @@ const chartGauche = new Chart(graphGauche, {
     }
 })
 
+
 const graphDroite = document.getElementById('graphiqueDroite');
 const chartDroite = new Chart(graphDroite, {
     type: "doughnut",
     data: {
-        labels: ['Antalgique', 'Antidépresseur', 'Antiinflamatoire', 'anxiolitique'],
+        labels: libelleTabMachin,
         datasets: [{
-            data: [12, 19, 3, 5],
+            data: totalTab,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

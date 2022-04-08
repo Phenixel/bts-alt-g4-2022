@@ -39,7 +39,7 @@ class PrescrireController extends AbstractController
         $prescrire = new Prescrire();
 
 
-        if ($request->request->get("prescrire")) {
+        if ($request->request->get("prescrireNewForm")) {
             $prescrire = new Prescrire();
             $prescrire->setMedDepotlegal($request->request->get("medicament"));
             $prescrire->setTinCode($request->request->get("individu"));
