@@ -65,20 +65,24 @@ class DataFixtures extends Fixture
         $saveMedicament = [];
 
         for ($m = 0; $m < 500; $m++){
-            $fcompo_contents = file("compositions.txt");
+            $fcompo_contents = file(__DIR__ . "src\DataFixtures\compositions.txt");
             $lineCompo = $fcompo_contents[array_rand($fcompo_contents)];
             $dataComp = $lineCompo;
 
-            $fcontre_contents = file("contre.txt");
+            $fcontre_contents = file("C:\Users\pheni\Documents\bts-alt-g4-2022\src\DataFixtures\contre.txt");
             $lineContre = $fcontre_contents[array_rand($fcontre_contents)];
             $dataContre = $lineContre;
 
+            $feffets1_contents = file("C:/Users/pheni/Documents/bts-alt-g4-2022/src/DataFixtures/effets1.txt");
+            $lineEffets1 = $feffets1_contents[array_rand($feffets1_contents)];
+            $dataEffets1 = $lineEffets1;
+
             $medicament = new Medicament();
             $medicament->setMEDNOMCOMMERCIAL($faker->medicine);
-            $medicament->setFAMCODE(random_int(0, (count($saveFamille) - 1)));
+            $medicament->setFAMCODE(random_int(1, (count($saveFamille))));
             $medicament->setMEDCOMPOSITION($dataComp);
             $medicament->setMEDCONTREINDIC($dataContre);
-            $medicament->setMEDEFFETS();
+            $medicament->setMEDEFFETS($dataEffets1);
             $medicament->setMEDPRIXECHANTILLON(random_int(10, 300)/10);
 
             $manager->persist($medicament);
