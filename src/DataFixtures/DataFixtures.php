@@ -65,24 +65,46 @@ class DataFixtures extends Fixture
         $saveMedicament = [];
 
         for ($m = 0; $m < 500; $m++){
-            $fcompo_contents = file(__DIR__ . "src\DataFixtures\compositions.txt");
+            $choseFam = random_int(1, (count($saveFamille)));
+
+            $fcompo_contents = file(__DIR__ . "\compositions.txt");
             $lineCompo = $fcompo_contents[array_rand($fcompo_contents)];
             $dataComp = $lineCompo;
 
-            $fcontre_contents = file("C:\Users\pheni\Documents\bts-alt-g4-2022\src\DataFixtures\contre.txt");
+            $fcontre_contents = file(__DIR__ ."\contre.txt");
             $lineContre = $fcontre_contents[array_rand($fcontre_contents)];
             $dataContre = $lineContre;
 
-            $feffets1_contents = file("C:/Users/pheni/Documents/bts-alt-g4-2022/src/DataFixtures/effets1.txt");
-            $lineEffets1 = $feffets1_contents[array_rand($feffets1_contents)];
-            $dataEffets1 = $lineEffets1;
+            if ($choseFam == 1){
+                $feffets1_contents = file(__DIR__ ."/effets1.txt");
+                $lineEffets1 = $feffets1_contents[array_rand($feffets1_contents)];
+                $dataEffets = $lineEffets1;
+            }elseif ($choseFam == 2){
+                $feffets2_contents = file(__DIR__ ."/effets2.txt");
+                $lineEffets2 = $feffets2_contents[array_rand($feffets2_contents)];
+                $dataEffets = $lineEffets2;
+            }elseif ($choseFam == 3){
+                $feffets3_contents = file(__DIR__ ."/effets3.txt");
+                $lineEffets3 = $feffets3_contents[array_rand($feffets3_contents)];
+                $dataEffets = $lineEffets3;
+            }elseif ($choseFam == 4){
+                $feffets4_contents = file(__DIR__ ."/effets4.txt");
+                $lineEffets4 = $feffets4_contents[array_rand($feffets4_contents)];
+                $dataEffets = $lineEffets4;
+            }elseif ($choseFam == 5){
+                $feffets5_contents = file(__DIR__ ."/effets5.txt");
+                $lineEffets5 = $feffets5_contents[array_rand($feffets5_contents)];
+                $dataEffets = $lineEffets5;
+            }else{
+                $dataEffets = "Aucun effet trouvé pour ce médicament.";
+            }
 
             $medicament = new Medicament();
             $medicament->setMEDNOMCOMMERCIAL($faker->medicine);
-            $medicament->setFAMCODE(random_int(1, (count($saveFamille))));
+            $medicament->setFAMCODE($choseFam);
             $medicament->setMEDCOMPOSITION($dataComp);
             $medicament->setMEDCONTREINDIC($dataContre);
-            $medicament->setMEDEFFETS($dataEffets1);
+            $medicament->setMEDEFFETS($dataEffets);
             $medicament->setMEDPRIXECHANTILLON(random_int(10, 300)/10);
 
             $manager->persist($medicament);
