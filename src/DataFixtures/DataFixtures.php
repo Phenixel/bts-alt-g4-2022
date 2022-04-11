@@ -7,6 +7,7 @@ use App\Entity\Dosage;
 use App\Entity\Famille;
 use App\Entity\Interaction;
 use App\Entity\Medicament;
+use App\Entity\Prescrire;
 use App\Entity\TypeIndividu;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -158,6 +159,22 @@ class DataFixtures extends Fixture
             }else{
                 --$i;
             }
+        }
+
+//        Prescriptions
+        for ($i = 0; $i < 20; $i++){
+            $lesPrescriptions = new Prescrire();
+            $depotLegal = random_int(0, (count($saveMedicament) - 1));
+            $tinCode = random_int(1, 6);
+            $dosCode = random_int(1, 10);
+
+            $lesPrescriptions->setMedDepotlegal($depotLegal);
+            $lesPrescriptions->setTinCode($tinCode);
+            $lesPrescriptions->setDosCode($dosCode);
+
+
+            $manager->persist($lesPrescriptions);
+            $manager->flush();
         }
 
     }
