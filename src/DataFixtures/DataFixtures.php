@@ -66,6 +66,8 @@ class DataFixtures extends Fixture
         $saveMedicament = [];
 
         for ($m = 0; $m < 500; $m++){
+            $nomMedic = $faker->medicine . " - " .random_int(1, 10)*100 . "mg";
+
             $choseFam = random_int(1, (count($saveFamille)));
 
             $fcompo_contents = file(__DIR__ . "\compositions.txt");
@@ -101,7 +103,7 @@ class DataFixtures extends Fixture
             }
 
             $medicament = new Medicament();
-            $medicament->setMEDNOMCOMMERCIAL($faker->medicine);
+            $medicament->setMEDNOMCOMMERCIAL($nomMedic);
             $medicament->setFAMCODE($choseFam);
             $medicament->setMEDCOMPOSITION($dataComp);
             $medicament->setMEDCONTREINDIC($dataContre);
