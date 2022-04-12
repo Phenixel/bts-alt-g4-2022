@@ -2,21 +2,11 @@ const graphGauche = document.getElementById('graphiqueGauche');
 const chartGauche = new Chart(graphGauche, {
     type: "polarArea",
     data: {
-        labels: ['Antalgique', 'Antidépresseur', 'Antiinflamatoire', 'anxiolitique'],
+        labels: libelleFam,
         datasets: [{
-            data: [12, 18, 3, 5],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
-            ],
+            data: nbMedics,
+            backgroundColor: colorOfMed,
+            borderColor: borderColorOfMed,
             borderWidth: 1
         }]
     }
@@ -27,21 +17,11 @@ const graphDroite = document.getElementById('graphiqueDroite');
 const chartDroite = new Chart(graphDroite, {
     type: "doughnut",
     data: {
-        labels: libelleTabMachin,
+        labels: libelleTab,
         datasets: [{
             data: totalTab,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-            ],
+            backgroundColor: colorOfPresc,
+            borderColor: borderColorOfPresc,
             borderWidth: 1
         }]
     }

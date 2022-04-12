@@ -75,6 +75,17 @@ class MedicamentRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function getChartMedParFam(){
+        $entityManager = $this->getEntityManager()->getConnection();
+        $query = 'SELECT famille.FAM_LIBELLE as libelle, COUNT(*) as total 
+                FROM medicament 
+                INNER JOIN famille on medicament.FAM_CODE = famille.id 
+                GROUP BY famille.FAM_LIBELLE';
+        $stmt=$entityManager->prepare($query);
+        $rest=$stmt->executeQuery();
+        return $rest->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Medicament[] Returns an array of Medicament objects
     //  */
