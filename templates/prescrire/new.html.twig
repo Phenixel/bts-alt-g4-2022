@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Prescrire{% endblock %}
+{% block title %}Ajouter une prescription{% endblock %}
 
 {% block activeP %}active{% endblock %}
 
@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block body %}
-    <form class="form" name="prescrire" method="POST">
+    <form class="form" name="prescrireNewForm" method="POST">
         <h1>Créer une nouvelle prescription</h1>
         <div class="form-group">
-            <label>Famille</label>
+            <label>Médicament</label>
             <select name="medicament" class="form-control">
                 {% if medicaments %}
                     {% for medicament in medicaments %}
