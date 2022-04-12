@@ -43,24 +43,24 @@ class MedicamentRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function setModifMedic(string $nomMedic, int $famCode, string $compo, string $effets, string $contre, float $prix, int $leMedic){
-        $entityManager = $this-> getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'UPDATE App\Entity\Medicament 
-            SET MED_NOMCOMMERCIAL = :nom ,FAM_CODE = :fam,MED_COMPOSITION = :compo,MED_EFFETS = :effets,MED_CONTREINDIC = :contre,MED_PRIXECHANTILLON = :prix WHERE MED_DEPOTLEGAL = :idMedic'
-        )->setParameters(array(
-            'nom' => $nomMedic,
-            'fam' =>$famCode,
-            'compo' => $compo,
-            'effets' => $effets,
-            'contre' => $contre,
-            'prix' => $prix,
-            'idMedic' => $leMedic
-        ));
-
-        return $query->getResult();
-    }
+//    public function setModifMedic(string $nomMedic, int $famCode, string $compo, string $effets, string $contre, float $prix, int $leMedic){
+//        $entityManager = $this-> getEntityManager();
+//
+//        $query = $entityManager->createQuery(
+//            'UPDATE App\Entity\Medicament
+//            SET MED_NOMCOMMERCIAL = :nom ,FAM_CODE = :fam,MED_COMPOSITION = :compo,MED_EFFETS = :effets,MED_CONTREINDIC = :contre,MED_PRIXECHANTILLON = :prix WHERE MED_DEPOTLEGAL = :idMedic'
+//        )->setParameters(array(
+//            'nom' => $nomMedic,
+//            'fam' =>$famCode,
+//            'compo' => $compo,
+//            'effets' => $effets,
+//            'contre' => $contre,
+//            'prix' => $prix,
+//            'idMedic' => $leMedic
+//        ));
+//
+//        return $query->getResult();
+//    }
 
     public function maxPrescrit(){
         $entityManager = $this-> getEntityManager();
@@ -73,6 +73,17 @@ class MedicamentRepository extends ServiceEntityRepository
         );
 
         return $query->getResult();
+    }
+
+    public function getChartMedParFam(){
+        $entityManager = $this->getEntityManager()->getConnection();
+        $query = 'SELECT famille.FAM_LIBELLE as libelle, COUNT(*) as total 
+                FROM medicament 
+                INNER JOIN famille on medicament.FAM_CODE = famille.id 
+                GROUP BY famille.FAM_LIBELLE';
+        $stmt=$entityManager->prepare($query);
+        $rest=$stmt->executeQuery();
+        return $rest->fetchAllAssociative();
     }
 
     // /**

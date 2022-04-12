@@ -42,9 +42,37 @@
 
 {% block javascripts %}
     <script src="/node_modules/chart.js/dist/chart.js"></script>
-    <script src="/assets/js/chart.js"></script>
 
     <script>
+        let libelleTab=[];
+        let totalTab=[];
+        let colorOfPresc=[];
+        let borderColorOfPresc=[];
+        let libelleFam=[];
+        let nbMedics=[];
+        let colorOfMed=[];
+        let borderColorOfMed=[];
+
+        {% for prescription in fonctionDoughnut %}
+            {% set colorA = random(255) %}
+            {% set colorB = random(255) %}
+            {% set colorC = random(255) %}
+            libelleTab.push('{{ prescription['libelle'] }}');
+            totalTab.push('{{ prescription['total'] }}');
+            colorOfPresc.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 0.2)');
+            borderColorOfPresc.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 1)');
+        {% endfor %}
+
+        {% for medicaments in chartPolar %}
+            {% set colorA = random(255) %}
+            {% set colorB = random(255) %}
+            {% set colorC = random(255) %}
+            libelleFam.push('{{ medicaments['libelle'] }}');
+            nbMedics.push('{{ medicaments['total'] }}');
+            colorOfMed.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 0.2)');
+            borderColorOfMed.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 1)');
+        {% endfor %}
 
     </script>
+    <script src="/assets/js/chart.js"></script>
 {% endblock %}

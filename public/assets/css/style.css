@@ -177,6 +177,10 @@
     max-height:150px;
 }
 
+.p_foot{
+    margin-top: revert;
+}
+
 /* Animation */
 
 .parallax > use {
