@@ -31,6 +31,7 @@ $ symfony console doctrine:migrations:migrate
 ```bash
 $ symfony console doctrine:fixtures:load
 ```
+> ⚠️Cette commandes remettras votre base de données à 0
 
 ---
 Auteurs : Yonathan Cardoso & Maxime Buat
