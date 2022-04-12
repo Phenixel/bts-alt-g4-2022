@@ -1,37 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion médicament | Accueil {% endblock %}
+{% block title %}Accueil ~ Gestion médicament{% endblock %}
+
+{% block activeH %}active{% endblock %}
+
+{% block stylesheets %}
+    <link href="/assets/css/annimations.css" rel="stylesheet">
+{%  endblock %}
 
 {% block body %}
 
+    <div class="main">
+        <div class="graphique_gauche"><h3>Nombre de médicament par famille</h3></div>
+        <div class="graphique_droite"><h3>Nombre de prescription par type individu</h3></div>
+    </div>
 <div class="main">
     <div class="graphique_gauche">
-        <h3>Les familles les plus utilisées</h3>
-{#        <canvas id="myChart" width="400px" height="400px"></canvas>#}
         <canvas id="graphiqueGauche" aria-label="chart" role="img"></canvas>
     </div>
 
     <div class="graphique_droite">
-        <h3>Les familles les plus utilisées</h3>
         <canvas id="graphiqueDroite" aria-label="chart" role="img"></canvas>
     </div>
 </div>
 
-    <hr style="margin: 20px 0 20px 0" >
+    <hr style="margin: 5% 0 1% 0" >
 
-<div>
-    <h3>Medicament le plus prescrit</h3>
+<div class="infosP">
+    <div class="contentPMPresc">
+    <h5 class="txtPMPresc"><span class="animationSpan">Medicament le plus prescrit</span></h5>
+    <h3 class="txtPMPresc"><span class="animationSpan">Nom générique</span></h3>
+    </div>
 
-
+    <div class="contentPMPresc">
+        <h5 class="txtPMPresc"><span class="animationSpan">Medicament le moins prescrit</span></h5>
+        <h3 class="txtPMPresc"><span class="animationSpan">Nom générique</span></h3>
+    </div>
 </div>
 
 {% endblock %}
 
 {% block javascripts %}
     <script src="/node_modules/chart.js/dist/chart.js"></script>
-    <script src="/assets/js/chart.js"></script>
 
     <script>
+        let libelleTab=[];
+        let totalTab=[];
+        let colorOfPresc=[];
+        let borderColorOfPresc=[];
+        let libelleFam=[];
+        let nbMedics=[];
+        let colorOfMed=[];
+        let borderColorOfMed=[];
+
+        {% for prescription in fonctionDoughnut %}
+            {% set colorA = random(255) %}
+            {% set colorB = random(255) %}
+            {% set colorC = random(255) %}
+            libelleTab.push('{{ prescription['libelle'] }}');
+            totalTab.push('{{ prescription['total'] }}');
+            colorOfPresc.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 0.2)');
+            borderColorOfPresc.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 1)');
+        {% endfor %}
+
+        {% for medicaments in chartPolar %}
+            {% set colorA = random(255) %}
+            {% set colorB = random(255) %}
+            {% set colorC = random(255) %}
+            libelleFam.push('{{ medicaments['libelle'] }}');
+            nbMedics.push('{{ medicaments['total'] }}');
+            colorOfMed.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 0.2)');
+            borderColorOfMed.push('rgba({{ colorA }}, {{ colorB }}, {{ colorC }}, 1)');
+        {% endfor %}
 
     </script>
+    <script src="/assets/js/chart.js"></script>
 {% endblock %}

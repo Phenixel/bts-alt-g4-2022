@@ -61,12 +61,38 @@
 /* Home */
 .main{
     display: flex;
+    text-align: center;
 }
+
+.infosP{
+    display: flex;
+    /*justify-content: space-between;*/
+    text-align: center;
+    /*margin: 0 10% 0 10%;*/
+}
+
+.contentPMPresc {
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-self: center;
+}
+
 .graphique_droite, .graphique_gauche{
     width: 100%;
     margin-left: 10%;
     margin-right: 10%;
     align-self: center;
+}
+/* Show */
+.navigation_medic{
+    display: flex;
+    justify-content: space-between;
+    /*margin-top: 100px;*/
+}
+.link_nav_medic{
+    color: #252537;
+    text-decoration: none;
 }
 
 /*Tableaux*/
@@ -109,4 +135,96 @@
 /*Show*/
 .show-table{
 
+}
+
+/* DarkMode */
+#darkModeGeneral{
+    background-color: #252537;
+    color: white;
+}
+
+/* Footer */
+.footer{
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.inner-header {
+    height:65vh;
+    width:100%;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-eau{
+    background-color: white;
+}
+
+.flex { /*Flexbox for containers*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.waves {
+    position:relative;
+    width: 100%;
+    height:15vh;
+    margin-bottom:-7px; /*Fix for safari gap*/
+    min-height:100px;
+    max-height:150px;
+}
+
+.p_foot{
+    margin-top: revert;
+}
+
+/* Animation */
+
+.parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px,0,0);
+    }
+    100% {
+        transform: translate3d(85px,0,0);
+    }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+    .waves {
+        height:40px;
+        min-height:40px;
+    }
+    .footer-eau {
+        height:30vh;
+    }
+    h1 {
+        font-size:24px;
+    }
+}
+
+/* Selection */
+::selection{
+    background-color: rgba(194, 243, 251, 0.6);
 }

@@ -18,6 +18,8 @@ class TypeIndividuController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
+//        dd($typeIndividuRepository->findAll());
+
         return $this->render('type_individu/index.html.twig', [
             'type_individus' => $typeIndividuRepository->findAll(),
         ]);
@@ -26,13 +28,15 @@ class TypeIndividuController extends AbstractController
     #[Route('/new', name: 'type_individu_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $typeIndividu = new TypeIndividu();
-        $form = $this->createForm(TypeIndividuType::class, $typeIndividu);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->request->get("typeindividu")) {
+//            dd($request->request);
+            $typeIndividu = new TypeIndividu();
+            $typeIndividu->setTinLibelle($request->request->get("typeindividu")["tin_libelle"]);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($typeIndividu);
             $entityManager->flush();
@@ -42,7 +46,6 @@ class TypeIndividuController extends AbstractController
 
         return $this->renderForm('type_individu/new.html.twig', [
             'type_individu' => $typeIndividu,
-            'form' => $form,
         ]);
     }
 

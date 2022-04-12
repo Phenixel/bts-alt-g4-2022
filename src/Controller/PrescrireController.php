@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\MedicamentRepository;
+use App\Repository\TypeIndividuRepository;
+use App\Repository\DosageRepository;
 
 #[Route('/prescrire')]
 class PrescrireController extends AbstractController
@@ -18,21 +21,31 @@ class PrescrireController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $prescrireAll = $prescrireRepository->findNomsPrescription();
+
         return $this->render('prescrire/index.html.twig', [
-            'prescrires' => $prescrireRepository->findAll(),
+            'prescrires' => $prescrireAll,
         ]);
     }
 
     #[Route('/new', name: 'prescrire_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        $listeMedicament = $MedicamentRepository->findAll();
+        $listeTY = $TypeIndividuRespository->findAll();
+        $listeDosage = $DosageRepository->findAll();
         $prescrire = new Prescrire();
-        $form = $this->createForm(PrescrireType::class, $prescrire);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($request->request->get("prescrireNewForm")) {
+            $prescrire = new Prescrire();
+            $prescrire->setMedDepotlegal($request->request->get("medicament"));
+            $prescrire->setTinCode($request->request->get("individu"));
+            $prescrire->setDosCode($request->request->get("dosage"));
+            dd($request->request);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prescrire);
             $entityManager->flush();
@@ -42,7 +55,10 @@ class PrescrireController extends AbstractController
 
         return $this->renderForm('prescrire/new.html.twig', [
             'prescrire' => $prescrire,
-            'form' => $form,
+            'medicaments' => $listeMedicament,
+            'individus' => $listeTY,
+            'dosages' => $listeDosage
+
         ]);
     }
 
