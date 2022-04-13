@@ -38,13 +38,14 @@ class PrescrireController extends AbstractController
         $listeDosage = $DosageRepository->findAll();
         $prescrire = new Prescrire();
 
+//        dd($request->request);
 
-        if ($request->request->get("prescrireNewForm")) {
+        if ($request->request->has("medicament")) {
             $prescrire = new Prescrire();
             $prescrire->setMedDepotlegal($request->request->get("medicament"));
             $prescrire->setTinCode($request->request->get("individu"));
             $prescrire->setDosCode($request->request->get("dosage"));
-            dd($request->request);
+//            dd($request->request);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prescrire);
@@ -76,6 +77,8 @@ class PrescrireController extends AbstractController
     public function edit(Request $request, Prescrire $prescrire): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        dd($request);
 
         $form = $this->createForm(PrescrireType::class, $prescrire);
         $form->handleRequest($request);
