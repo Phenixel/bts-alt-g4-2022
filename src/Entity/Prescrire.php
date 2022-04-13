@@ -42,7 +42,7 @@ class Prescrire
         return $this->Med_depotlegal;
     }
 
-    public function setMedDepotlegal(string $Med_depotlegal): self
+    public function setMedDepotlegal(int $Med_depotlegal): self
     {
         $this->Med_depotlegal = $Med_depotlegal;
 

@@ -32,6 +32,8 @@ class TypeIndividuController extends AbstractController
 
         $typeIndividu = new TypeIndividu();
 
+//        dd($request);
+
         if ($request->request->get("typeindividu")) {
 //            dd($request->request);
             $typeIndividu = new TypeIndividu();
@@ -60,22 +62,32 @@ class TypeIndividuController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'type_individu_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, TypeIndividu $typeIndividu): Response
+    public function edit(Request $request, TypeIndividu $typeIndividu, TypeIndividuRepository $individuRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $form = $this->createForm(TypeIndividuType::class, $typeIndividu);
-        $form->handleRequest($request);
+        $nomType = $individuRepository->getUnType($id);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+//        dd($request->request->get("typeIndividu"));
+
+        $default = [
+            "nom" => $nomType[0]["tin_libelle"]
+        ];
+
+
+        if ($request->request->get("typeIndividu")) {
+            $typeIndividu->setTinLibelle($request->request->get("typeIndividu")["tin_libelle"]);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($typeIndividu);
+            $entityManager->flush();
 
             return $this->redirectToRoute('type_individu_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('type_individu/edit.html.twig', [
             'type_individu' => $typeIndividu,
-            'form' => $form,
+            'default' => $default
         ]);
     }
 
