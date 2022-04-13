@@ -83,7 +83,6 @@ class MedicamentController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $listeFamille = $familleRepository->findAll();
-
         $tabMedicament = $medicamentRepository->getUnMedic($id);
 
 //        dd($request->request->get("medicament"));
@@ -97,11 +96,6 @@ class MedicamentController extends AbstractController
             "prix" => $tabMedicament[0]["MED_PRIXECHANTILLON"],
         ];
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->getDoctrine()->getManager()->flush();
-//
-//            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
-//        }
 
 //        dd($OMedicament);
 

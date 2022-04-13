@@ -19,6 +19,17 @@ class TypeIndividuRepository extends ServiceEntityRepository
         parent::__construct($registry, TypeIndividu::class);
     }
 
+    public function getUnType(int $leType){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT ti.tin_libelle 
+            FROM App\Entity\TypeIndividu as ti WHERE ti.id = :idType'
+        )->setParameters(array('idType' => $leType));
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return TypeIndividu[] Returns an array of TypeIndividu objects
     //  */
