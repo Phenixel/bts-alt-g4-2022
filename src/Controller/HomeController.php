@@ -16,13 +16,22 @@ class HomeController extends AbstractController
     public function index(PrescrireRepository $PrescrireRepository, MedicamentRepository $medicamentRepository): Response
     {
 
+//        Graphiques
         $fonctionDoughnut = $PrescrireRepository->getPieChartPrescrire();
         $chartPolar = $medicamentRepository->getChartMedParFam();
+
+//        Prescriptions + & -
+        $maxPrescrit = $medicamentRepository->maxPrescrit();
+        $minPrescrit = $medicamentRepository->minPrescrit();
+
+//        dd($maxPrescrit);
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'fonctionDoughnut'=>$fonctionDoughnut,
-            'chartPolar'=>$chartPolar
+            'chartPolar'=>$chartPolar,
+            'maxPrescrit'=>$maxPrescrit,
+            'minPrescrit'=>$minPrescrit
         ]);
 
 
