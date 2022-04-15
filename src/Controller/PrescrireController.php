@@ -74,9 +74,11 @@ class PrescrireController extends AbstractController
     }
 
     #[Route('/{id}', name: 'prescrire_show', methods: ['GET'])]
-    public function show(Prescrire $prescrire): Response
+    public function show(Prescrire $prescrire, PrescrireRepository $prescrireRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $prescrire = $prescrireRepository->getUnePrescription(intval($id));
 
         return $this->render('prescrire/show.html.twig', [
             'prescrire' => $prescrire,
