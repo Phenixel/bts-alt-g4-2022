@@ -46,7 +46,7 @@ class PrescrireController extends AbstractController
             $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
 
             if (empty($prescription) == false) {
-                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+                echo ("<script>alert('Cette prescription existe déjà.');</script>");
             }
             else {
                 $prescrire = new Prescrire();
@@ -107,7 +107,7 @@ class PrescrireController extends AbstractController
             $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
 
             if (empty($prescription) == false) {
-                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+                echo ("<script>alert('Cette prescription existe déjà.');</script>");
             }
             else {
 
