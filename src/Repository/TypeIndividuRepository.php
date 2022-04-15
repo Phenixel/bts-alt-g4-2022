@@ -30,6 +30,17 @@ class TypeIndividuRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function getUnTypeParNom(string $leType){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT ti.tin_libelle 
+            FROM App\Entity\TypeIndividu as ti WHERE ti.tin_libelle = :leType'
+        )->setParameters(array('leType' => $leType));
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return TypeIndividu[] Returns an array of TypeIndividu objects
     //  */

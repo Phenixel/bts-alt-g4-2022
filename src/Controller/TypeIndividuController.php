@@ -26,24 +26,30 @@ class TypeIndividuController extends AbstractController
     }
 
     #[Route('/new', name: 'type_individu_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, TypeIndividuRepository $typeIndividuRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $typeIndividu = new TypeIndividu();
 
-//        dd($request);
 
-        if ($request->request->get("typeindividu")) {
-//            dd($request->request);
-            $typeIndividu = new TypeIndividu();
-            $typeIndividu->setTinLibelle($request->request->get("typeindividu")["tin_libelle"]);
+            if ($request->request->get("typeindividu")) {
+                $verifType = $typeIndividuRepository->getUnTypeParNom($request->request->get("typeindividu")["tin_libelle"]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($typeIndividu);
-            $entityManager->flush();
+                if (empty($verifType) == false) {
+                    echo ("<script>alert('Ce type d\'individu existe déjà.');</script>");
+                }
+                else {
 
-            return $this->redirectToRoute('type_individu_index', [], Response::HTTP_SEE_OTHER);
+                    $typeIndividu = new TypeIndividu();
+                    $typeIndividu->setTinLibelle($request->request->get("typeindividu")["tin_libelle"]);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($typeIndividu);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('type_individu_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('type_individu/new.html.twig', [
@@ -62,11 +68,11 @@ class TypeIndividuController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'type_individu_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, TypeIndividu $typeIndividu, TypeIndividuRepository $individuRepository, $id): Response
+    public function edit(Request $request, TypeIndividu $typeIndividu, TypeIndividuRepository $typeIndividuRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $nomType = $individuRepository->getUnType($id);
+        $nomType = $typeIndividuRepository->getUnType($id);
 
 //        dd($request->request->get("typeIndividu"));
 
@@ -76,13 +82,21 @@ class TypeIndividuController extends AbstractController
 
 
         if ($request->request->get("typeIndividu")) {
-            $typeIndividu->setTinLibelle($request->request->get("typeIndividu")["tin_libelle"]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($typeIndividu);
-            $entityManager->flush();
+                $verifType = $typeIndividuRepository->getUnTypeParNom($request->request->get("typeIndividu")["tin_libelle"]);
 
-            return $this->redirectToRoute('type_individu_index', [], Response::HTTP_SEE_OTHER);
+                if (empty($verifType) == false) {
+                    echo ("<script>alert('Ce type d\'individu existe déjà.');</script>");
+                }
+                else {
+                    $typeIndividu->setTinLibelle($request->request->get("typeIndividu")["tin_libelle"]);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($typeIndividu);
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('type_individu_index', [], Response::HTTP_SEE_OTHER);
+                }
         }
 
         return $this->renderForm('type_individu/edit.html.twig', [
