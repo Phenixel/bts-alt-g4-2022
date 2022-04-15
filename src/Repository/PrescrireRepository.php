@@ -35,7 +35,7 @@ class PrescrireRepository extends ServiceEntityRepository
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT P.id FROM App\Entity\Prescrire as P WHERE Med_depotlegal = medDepot AND tin_code = tinCode AND dos_code = dosCode'
+            'SELECT p.id FROM App\Entity\Prescrire as p WHERE p.Med_depotlegal = :medDepot AND p.tin_code = :tinCode AND p.dos_code = :dosCode'
         )->setParameters(array('medDepot' => $DepotLegal, 'tinCode' => $tinCode, 'dosCode' => $dosCode));
 
         return $query->getResult();

@@ -29,7 +29,7 @@ class PrescrireController extends AbstractController
     }
 
     #[Route('/new', name: 'prescrire_new', methods: ['GET','POST'])]
-    public function new(Request $request, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository): Response
+    public function new(Request $request, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository, PrescrireRepository $prescrireRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -38,21 +38,31 @@ class PrescrireController extends AbstractController
         $listeDosage = $DosageRepository->findAll();
         $prescrire = new Prescrire();
 
+
 //        dd($request->request);
 
         if ($request->request->has("medicament")) {
-            $prescrire = new Prescrire();
-            $prescrire->setMedDepotlegal($request->request->get("medicament"));
-            $prescrire->setTinCode($request->request->get("individu"));
-            $prescrire->setDosCode($request->request->get("dosage"));
-//            dd($request->request);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($prescrire);
-            $entityManager->flush();
+            $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
 
-            return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            if (empty($prescription) == false) {
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else {
+                $prescrire = new Prescrire();
+                $prescrire->setMedDepotlegal($request->request->get("medicament"));
+                $prescrire->setTinCode($request->request->get("individu"));
+                $prescrire->setDosCode($request->request->get("dosage"));
+                //            dd($request->request);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($prescrire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
+
 
         return $this->renderForm('prescrire/new.html.twig', [
             'prescrire' => $prescrire,
@@ -94,15 +104,24 @@ class PrescrireController extends AbstractController
 
         if ($request->request->has("medicament")) {
 
-            $OPrescrire->setMedDepotlegal($request->request->get("medicament"));
-            $OPrescrire->setTinCode($request->request->get("individu"));
-            $OPrescrire->setDosCode($request->request->get("dosage"));
+            $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($OPrescrire);
-            $entityManager->flush();
+            if (empty($prescription) == false) {
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else {
 
-            return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+                $OPrescrire->setMedDepotlegal($request->request->get("medicament"));
+                $OPrescrire->setTinCode($request->request->get("individu"));
+                $OPrescrire->setDosCode($request->request->get("dosage"));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($OPrescrire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+
+            }
         }
 
         return $this->renderForm('prescrire/edit.html.twig', [
