@@ -7,6 +7,7 @@ use App\Form\MedicamentType;
 use App\Repository\FamilleRepository;
 use App\Repository\InteractionRepository;
 use App\Repository\MedicamentRepository;
+use App\Repository\PrescrireRepository;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -124,11 +125,14 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'medicament_delete', methods: ['POST'])]
-    public function delete(Request $request, Medicament $medicament): Response
+    public function delete(Request $request, Medicament $medicament, PrescrireRepository  $prescrireRepository, InteractionRepository $interactionRepository,$id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($this->isCsrfTokenValid('delete'.$medicament->getId(), $request->request->get('_token'))) {
+            $prescrireRepository->deleteUnePresc($id);
+            $interactionRepository->deleteUneInteraction($id);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($medicament);
             $entityManager->flush();
