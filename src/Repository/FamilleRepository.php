@@ -19,6 +19,17 @@ class FamilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Famille::class);
     }
 
+    // Retourne le nom de la famille selon l'id
+    public function findNomFamille(int $id){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT F.fam_libelle FROM app\Entity\Famille as F WHERE F.id = :idFamille'
+        )->setParameters(array('idFamille' => $id));
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Famille[] Returns an array of Famille objects
     //  */
