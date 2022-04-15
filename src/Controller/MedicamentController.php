@@ -63,17 +63,17 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'medicament_show', methods: ['GET'])]
-    public function show(Medicament $medicament, InteractionRepository $interactionRepository, $id): Response
+    public function show(Medicament $medicament, InteractionRepository $interactionRepository, $id, FamilleRepository $familleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $listeInteractions = $interactionRepository->findInteraction($id);
-
-//        dd($listeInteractions);
+        $nomFamille = $familleRepository->findNomFamille($medicament->getFAMCODE());
 
         return $this->render('medicament/show.html.twig', [
             'medicament' => $medicament,
-            'interaction' => $listeInteractions
+            'interaction' => $listeInteractions,
+            'nomFamille' => $nomFamille,
         ]);
     }
 
