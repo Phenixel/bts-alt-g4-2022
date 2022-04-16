@@ -65,6 +65,20 @@ class PrescrireRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function deleteUnePresc(int $idMedic){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'DELETE FROM prescrire
+        WHERE id in (SELECT prescrire.id FROM prescrire
+        INNER JOIN medicament on prescrire.med_depotlegal = medicament.id
+        WHERE medicament.id = ' .$idMedic. ')';
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Prescrire[] Returns an array of Prescrire objects
     //  */

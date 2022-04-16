@@ -31,6 +31,20 @@ class InteractionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function deleteUneInteraction(int $idMedic){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'DELETE FROM interaction
+        WHERE id in (SELECT interaction.id FROM interaction
+        INNER JOIN medicament on interaction.med_perturbateur = medicament.id
+        WHERE medicament.id = ' .$idMedic. ')';
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Interaction[] Returns an array of Interaction objects
     //  */
