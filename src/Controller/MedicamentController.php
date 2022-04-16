@@ -31,7 +31,7 @@ class MedicamentController extends AbstractController
     }
 
     #[Route('/new', name: 'medicament_new', methods: ['GET','POST'])]
-    public function new(Request $request, FamilleRepository $familleRepository): Response
+    public function new(Request $request, FamilleRepository $familleRepository, MedicamentRepository $medicamentRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -41,20 +41,28 @@ class MedicamentController extends AbstractController
 
 
         if ($request->request->get("medicament")){
+
+            $verifMedicament = $medicamentRepository->findMedicament($request->request->get("medicament")["med_nomcommercial"]);
+
+            if (empty($verifMedicament) == false) {
+                echo ("<script>alert('Ce médicament existe déjà.');</script>");
+            }
+            else {
 //            dd($request->request);
-            $medicament = new Medicament();
-            $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
-            $medicament->setFAMCODE($request->request->get("famille"));
-            $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
-            $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
-            $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
-            $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+                $medicament = new Medicament();
+                $medicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+                $medicament->setFAMCODE($request->request->get("famille"));
+                $medicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+                $medicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+                $medicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+                $medicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($medicament);
-            $entityManager->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($medicament);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('medicament/new.html.twig', [
@@ -101,20 +109,27 @@ class MedicamentController extends AbstractController
 //        dd($OMedicament);
 
         if ($request->request->get("medicament")){
-//            dd($request->request);
 
-            $OMedicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
-            $OMedicament->setFAMCODE($request->request->get("famille"));
-            $OMedicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
-            $OMedicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
-            $OMedicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
-            $OMedicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+            $verifMedicament = $medicamentRepository->findMedicament($request->request->get("medicament")["med_nomcommercial"]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($OMedicament);
-            $entityManager->flush();
+            if (empty($verifMedicament) == false) {
+                echo ("<script>alert('Ce médicament existe déjà.');</script>");
+            }
+            else {
 
-            return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+                $OMedicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
+                $OMedicament->setFAMCODE($request->request->get("famille"));
+                $OMedicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
+                $OMedicament->setMEDEFFETS($request->request->get("medicament")["med_effets"]);
+                $OMedicament->setMEDCONTREINDIC($request->request->get("medicament")["med_contreindic"]);
+                $OMedicament->setMEDPRIXECHANTILLON($request->request->get("medicament")["med_prixechantillon"]);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($OMedicament);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('medicament/edit.html.twig', [
