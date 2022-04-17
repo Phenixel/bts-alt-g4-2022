@@ -103,6 +103,16 @@ class MedicamentRepository extends ServiceEntityRepository
         return $rest->fetchAllAssociative();
     }
 
+    public function findMedicament(string $medNom){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m.id FROM App\Entity\Medicament as m WHERE m.MED_NOMCOMMERCIAL = :medNom'
+        )->setParameters(array('medNom' => $medNom));
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Medicament[] Returns an array of Medicament objects
     //  */

@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label>Prix €</label>
-            <input class="form-control" name="medicament[med_prixechantillon]" type="number" placeholder="Prix en euro €" value="{{ default["prix"] }}">
+            <input class="form-control" name="medicament[med_prixechantillon]" type="number" step="0.1" placeholder="Prix en euro €" value="{{ default["prix"] }}">
         </div>
         <div class="form-group">
             <input class="btn btn-success form-control" type="submit" value="Envoyer" onclick="valideAdd()">
