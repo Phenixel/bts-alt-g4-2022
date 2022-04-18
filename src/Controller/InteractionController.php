@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Interaction;
+use App\Entity\Medicament;
 use App\Form\InteractionType;
 use App\Repository\InteractionRepository;
+use App\Repository\MedicamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,22 +25,48 @@ class InteractionController extends AbstractController
     }
 
     #[Route('/new', name: 'interaction_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MedicamentRepository $medicamentRepository, InteractionRepository $interactionRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $listeMedicament = $medicamentRepository->findAll();
+//        $listeMedicamentDispo = $interactionRepository->getInterDispo();
         $interaction = new Interaction();
-        $form = $this->createForm(InteractionType::class, $interaction);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($interaction);
-            $entityManager->flush();
+//        dd($request->request);
 
-            return $this->redirectToRoute('interaction_index', [], Response::HTTP_SEE_OTHER);
+//        dd($request->request->get("medicament-perturbateur"));
+        if ($request->request->has("medicament-perturbateur")) {
+            $interaction = $interactionRepository->findUneInteraction(
+                $request->request->get("medicament-perturbateur"),
+                $request->request->get("medicament-pertube")
+            );
+//            dd($request->request->get("medicament-perturbateur"));
+
+            if (empty($interaction) == false) {
+                echo ("<script>alert('Cette Interraction existe déjà.');</script>");
+            }elseif ($request->request->get("medicament-pertube") == $request->request->get("medicament-perturbateur")){
+                echo ("<script>alert('Veuillez choisir deux médicaments différents.');</script>");
+            }else{
+                $interaction = new Interaction();
+                $interaction->setMEDMEDPERTURBE($request->request->get("medicament-pertube"));
+                $interaction->setMEDPERTURBATEUR($request->request->get("medicament-perturbateur"));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($interaction);
+                $entityManager->flush();
+
+//            dd($request->request);
+
+//            return $this->redirectToRoute('interaction_new', [], Response::HTTP_SEE_OTHER);
+                return $this->redirect("/", Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('interaction/new.html.twig', [
             'interaction' => $interaction,
-            'form' => $form,
+            'medicaments' => $listeMedicament,
+//            'mediDispo' => $listeMedicamentDispo
         ]);
     }
 

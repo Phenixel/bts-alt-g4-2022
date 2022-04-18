@@ -79,9 +79,11 @@ class MedicamentController extends AbstractController
         $listeInteractions = $interactionRepository->findInteraction($id);
         $nomFamille = $familleRepository->findNomFamille($medicament->getFAMCODE());
 
+//        dd($listeInteractions);
+
         return $this->render('medicament/show.html.twig', [
             'medicament' => $medicament,
-            'interaction' => $listeInteractions,
+            'interactions' => $listeInteractions,
             'nomFamille' => $nomFamille,
         ]);
     }
