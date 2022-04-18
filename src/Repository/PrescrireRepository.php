@@ -35,7 +35,7 @@ class PrescrireRepository extends ServiceEntityRepository
         $entityManager = $this-> getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT P.id FROM App\Entity\Prescrire as P WHERE Med_depotlegal = medDepot AND tin_code = tinCode AND dos_code = dosCode'
+            'SELECT p.id FROM App\Entity\Prescrire as p WHERE p.Med_depotlegal = :medDepot AND p.tin_code = :tinCode AND p.dos_code = :dosCode'
         )->setParameters(array('medDepot' => $DepotLegal, 'tinCode' => $tinCode, 'dosCode' => $dosCode));
 
         return $query->getResult();
@@ -50,6 +50,32 @@ class PrescrireRepository extends ServiceEntityRepository
                     GROUP BY type_individu.tin_libelle';
         $stmt=$entityManager->prepare($query);
         $rest=$stmt->executeQuery();
+        return $rest->fetchAllAssociative();
+    }
+
+    public function getUnePrescription(int $laPres) {
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p.id, m.MED_NOMCOMMERCIAL, t.tin_libelle, d.DOS_QUANTITE, d.DOS_UNITE
+             FROM App\Entity\Medicament as m, App\Entity\TypeIndividu as t, App\Entity\Dosage as d, App\Entity\Prescrire as p
+             WHERE m.id = p.Med_depotlegal AND t.id = p.tin_code AND d.id = p.dos_code AND p.id = :idPrescrire'
+        )->setParameters(array('idPrescrire' => $laPres));
+
+        return $query->getResult();
+    }
+
+    public function deleteUnePresc(int $idMedic){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'DELETE FROM prescrire
+        WHERE id in (SELECT prescrire.id FROM prescrire
+        INNER JOIN medicament on prescrire.med_depotlegal = medicament.id
+        WHERE medicament.id = ' .$idMedic. ')';
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
         return $rest->fetchAllAssociative();
     }
 

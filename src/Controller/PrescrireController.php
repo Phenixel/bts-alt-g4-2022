@@ -29,7 +29,7 @@ class PrescrireController extends AbstractController
     }
 
     #[Route('/new', name: 'prescrire_new', methods: ['GET','POST'])]
-    public function new(Request $request, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository): Response
+    public function new(Request $request, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository, PrescrireRepository $prescrireRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -39,19 +39,30 @@ class PrescrireController extends AbstractController
         $prescrire = new Prescrire();
 
 
-        if ($request->request->get("prescrireNewForm")) {
-            $prescrire = new Prescrire();
-            $prescrire->setMedDepotlegal($request->request->get("medicament"));
-            $prescrire->setTinCode($request->request->get("individu"));
-            $prescrire->setDosCode($request->request->get("dosage"));
-            dd($request->request);
+//        dd($request->request);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($prescrire);
-            $entityManager->flush();
+        if ($request->request->has("medicament")) {
 
-            return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
+
+            if (empty($prescription) == false) {
+                echo ("<script>alert('Cette prescription existe déjà.');</script>");
+            }
+            else {
+                $prescrire = new Prescrire();
+                $prescrire->setMedDepotlegal($request->request->get("medicament"));
+                $prescrire->setTinCode($request->request->get("individu"));
+                $prescrire->setDosCode($request->request->get("dosage"));
+                //            dd($request->request);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($prescrire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
+
 
         return $this->renderForm('prescrire/new.html.twig', [
             'prescrire' => $prescrire,
@@ -63,9 +74,11 @@ class PrescrireController extends AbstractController
     }
 
     #[Route('/{id}', name: 'prescrire_show', methods: ['GET'])]
-    public function show(Prescrire $prescrire): Response
+    public function show(Prescrire $prescrire, PrescrireRepository $prescrireRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $prescrire = $prescrireRepository->getUnePrescription(intval($id));
 
         return $this->render('prescrire/show.html.twig', [
             'prescrire' => $prescrire,
@@ -73,22 +86,53 @@ class PrescrireController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'prescrire_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Prescrire $prescrire): Response
+    public function edit(Request $request, Prescrire $OPrescrire, PrescrireRepository $prescrireRepository, MedicamentRepository $MedicamentRepository, TypeIndividuRepository $TypeIndividuRespository, DosageRepository $DosageRepository, $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $form = $this->createForm(PrescrireType::class, $prescrire);
-        $form->handleRequest($request);
+//        dd($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $listeMedicament = $MedicamentRepository->findAll();
+        $listeTY = $TypeIndividuRespository->findAll();
+        $listeDosage = $DosageRepository->findAll();
+        $tabPrescrire = $prescrireRepository->getUnePrescription($id);
 
-            return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+        $default = [
+            "nomMedoc" => $tabPrescrire[0]["MED_NOMCOMMERCIAL"],
+            "nomType" => $tabPrescrire[0]["tin_libelle"],
+            "dosQuantite" => $tabPrescrire[0]["DOS_QUANTITE"],
+            "dosUnite" => $tabPrescrire[0]["DOS_UNITE"],
+        ];
+
+        if ($request->request->has("medicament")) {
+
+            $prescription = $prescrireRepository->findPrescription(intval($request->request->get("medicament")),intval($request->request->get("individu")),intval($request->request->get("dosage")));
+
+            if (empty($prescription) == false) {
+                echo ("<script>alert('Cette prescription existe déjà.');</script>");
+            }
+            else {
+
+                $OPrescrire->setMedDepotlegal($request->request->get("medicament"));
+                $OPrescrire->setTinCode($request->request->get("individu"));
+                $OPrescrire->setDosCode($request->request->get("dosage"));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($OPrescrire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('prescrire_index', [], Response::HTTP_SEE_OTHER);
+
+            }
         }
 
         return $this->renderForm('prescrire/edit.html.twig', [
-            'prescrire' => $prescrire,
-            'form' => $form,
+//            'prescrire' => $prescrire,
+//            'form' => $form,
+            'medicaments' => $listeMedicament,
+            'individus' => $listeTY,
+            'dosages' => $listeDosage,
+            'default' => $default,
         ]);
     }
 

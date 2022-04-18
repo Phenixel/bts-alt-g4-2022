@@ -63,16 +63,33 @@ class MedicamentRepository extends ServiceEntityRepository
 //    }
 
     public function maxPrescrit(){
-        $entityManager = $this-> getEntityManager();
+        $entityManager = $this->getEntityManager()->getConnection();
 
-        $query = $entityManager->createQuery(
-            'SELECT medicament.MED_NOMCOMMERCIAL FROM medicament 
-            INNER JOIN prescrire ON medicament.MED_DEPOTLEGAL=prescrire.MED_DEPOTLEGAL 
-            GROUP BY medicament.MED_NOMCOMMERCIAL HAVING COUNT(*) = 
-            ( SELECT MAX(nb) FROM (SELECT MED_DEPOTLEGAL,COUNT(MED_DEPOTLEGAL) as nb FROM prescrire GROUP BY MED_DEPOTLEGAL) as temp)'
-        );
+        $query = 'SELECT medicament.MED_NOMCOMMERCIAL as nomMedic
+        FROM medicament
+        INNER JOIN prescrire ON medicament.id=prescrire.MED_DEPOTLEGAL
+        GROUP BY medicament.MED_NOMCOMMERCIAL
+        HAVING COUNT(*) = ( SELECT MAX(nb) FROM (SELECT MED_DEPOTLEGAL,COUNT(MED_DEPOTLEGAL) as nb FROM prescrire GROUP BY med_depotlegal) as temp)';
 
-        return $query->getResult();
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
+    }
+
+    public function minPrescrit(){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'SELECT medicament.MED_NOMCOMMERCIAL as nomMedic
+        FROM medicament
+        INNER JOIN prescrire ON medicament.id=prescrire.MED_DEPOTLEGAL
+        GROUP BY medicament.MED_NOMCOMMERCIAL
+        HAVING COUNT(*) = ( SELECT MIN(nb) FROM (SELECT MED_DEPOTLEGAL,COUNT(MED_DEPOTLEGAL) as nb FROM prescrire GROUP BY med_depotlegal) as temp)';
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
     }
 
     public function getChartMedParFam(){
@@ -84,6 +101,16 @@ class MedicamentRepository extends ServiceEntityRepository
         $stmt=$entityManager->prepare($query);
         $rest=$stmt->executeQuery();
         return $rest->fetchAllAssociative();
+    }
+
+    public function findMedicament(string $medNom){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m.id FROM App\Entity\Medicament as m WHERE m.MED_NOMCOMMERCIAL = :medNom'
+        )->setParameters(array('medNom' => $medNom));
+
+        return $query->getResult();
     }
 
     // /**

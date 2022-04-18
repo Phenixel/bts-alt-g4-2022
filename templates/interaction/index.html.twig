@@ -1,35 +1,35 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block title %}Interaction index{% endblock %}
+{#{% block title %}Interaction index{% endblock %}#}
 
-{% block body %}
-    <h1>Interaction <a href="{{ path('interaction_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>
+{#{% block body %}#}
+{#    <h1>Interaction <a href="{{ path('interaction_new') }}"class="btn btn-success btn-lg" role="button" aria-disabled="true">Créer un nouveau</a></h1>#}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>MED_PERTURBATEUR</th>
-                <th>MED_MED_PERTURBE</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for interaction in interactions %}
-            <tr>
-                <td>{{ interaction.id }}</td>
-                <td>{{ interaction.MEDPERTURBATEUR }}</td>
-                <td>{{ interaction.MEDMEDPERTURBE }}</td>
-                <td>
-                    <a href="{{ path('interaction_show', {'id': interaction.id}) }}"><i class="icon_index fas fa-eye"></i></a>
-                    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}"><i class="icon_index fas fa-pen"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+{#    <table class="table">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <th>MED_PERTURBATEUR</th>#}
+{#                <th>MED_MED_PERTURBE</th>#}
+{#                <th>actions</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for interaction in interactions %}#}
+{#            <tr>#}
+{#                <td>{{ interaction.id }}</td>#}
+{#                <td>{{ interaction.MEDPERTURBATEUR }}</td>#}
+{#                <td>{{ interaction.MEDMEDPERTURBE }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('interaction_show', {'id': interaction.id}) }}"><i class="icon_index fas fa-eye"></i></a>#}
+{#                    <a href="{{ path('interaction_edit', {'id': interaction.id}) }}"><i class="icon_index fas fa-pen"></i></a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="4">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+{#{% endblock %}#}

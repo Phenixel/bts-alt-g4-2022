@@ -31,6 +31,46 @@ class InteractionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findUneInteraction(int $idMedic, int $idMedic2){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m.MED_NOMCOMMERCIAL FROM App\Entity\Medicament as m, App\Entity\Interaction as i 
+            WHERE i.MED_MED_PERTURBE = m.id AND i.MED_PERTURBATEUR = :idMedic AND i.MED_MED_PERTURBE = :idMedic2'
+        )->setParameters(array('idMedic' => $idMedic,
+            'idMedic2' => $idMedic2));
+
+        return $query->getResult();
+    }
+
+    public function deleteUneInteraction(int $idMedic){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'DELETE FROM interaction
+        WHERE id in (SELECT interaction.id FROM interaction
+        INNER JOIN medicament on interaction.med_perturbateur = medicament.id
+        WHERE medicament.id = ' .$idMedic. ')';
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
+    }
+
+    public function getInterDispo(int $idMedic){
+        $entityManager = $this->getEntityManager()->getConnection();
+
+        $query = 'SELECT medicament.id, medicament.med_nomcommercial from medicament
+        WHERE medicament.id not in 
+        (SELECT interaction.MED_PERTURBATEUR from interaction WHERE interaction.MED_MED_PERTURBE = ' .$idMedic. ')
+        and medicament.id <> ' .$idMedic;
+
+        $stmt = $entityManager->prepare($query);
+        $rest = $stmt->executeQuery();
+
+        return $rest->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Interaction[] Returns an array of Interaction objects
     //  */
