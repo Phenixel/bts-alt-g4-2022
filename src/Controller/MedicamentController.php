@@ -112,13 +112,6 @@ class MedicamentController extends AbstractController
 
         if ($request->request->get("medicament")){
 
-            $verifMedicament = $medicamentRepository->findMedicament($request->request->get("medicament")["med_nomcommercial"]);
-
-            if (empty($verifMedicament) == false) {
-                echo ("<script>alert('Ce médicament existe déjà.');</script>");
-            }
-            else {
-
                 $OMedicament->setMEDNOMCOMMERCIAL($request->request->get("medicament")["med_nomcommercial"]);
                 $OMedicament->setFAMCODE($request->request->get("famille"));
                 $OMedicament->setMEDCOMPOSITION($request->request->get("medicament")["med_composition"]);
@@ -131,7 +124,6 @@ class MedicamentController extends AbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('medicament_index', [], Response::HTTP_SEE_OTHER);
-            }
         }
 
         return $this->renderForm('medicament/edit.html.twig', [
