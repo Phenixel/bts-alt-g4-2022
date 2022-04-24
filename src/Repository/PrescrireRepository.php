@@ -79,6 +79,16 @@ class PrescrireRepository extends ServiceEntityRepository
         return $rest->fetchAllAssociative();
     }
 
+    public function deletePresc(int $idMedic){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'DELETE FROM App\Entity\Prescrire as p WHERE p.Med_depotlegal = :medDepot'
+        )->setParameters(array('medDepot' => $idMedic));
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Prescrire[] Returns an array of Prescrire objects
     //  */

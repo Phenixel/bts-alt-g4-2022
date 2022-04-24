@@ -139,8 +139,12 @@ class MedicamentController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($this->isCsrfTokenValid('delete'.$medicament->getId(), $request->request->get('_token'))) {
-            $prescrireRepository->deleteUnePresc($id);
-            $interactionRepository->deleteUneInteraction($id);
+            if ($prescrireRepository->deletePresc($id)){
+                $prescrireRepository->deletePresc($id);
+            }
+            if ($interactionRepository->deleteInter($id)){
+                $interactionRepository->deleteInter($id);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($medicament);
