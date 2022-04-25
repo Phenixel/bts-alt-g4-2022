@@ -57,6 +57,16 @@ class InteractionRepository extends ServiceEntityRepository
         return $rest->fetchAllAssociative();
     }
 
+    public function deleteInter(int $idMedic){
+        $entityManager = $this-> getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'DELETE FROM App\Entity\Interaction as i WHERE i.MED_PERTURBATEUR = :medPerturb'
+        )->setParameters(array('medPerturb' => $idMedic));
+
+        return $query->getResult();
+    }
+
     public function getInterDispo(int $idMedic){
         $entityManager = $this->getEntityManager()->getConnection();
 
